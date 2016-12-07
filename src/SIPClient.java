@@ -63,7 +63,7 @@ public class SIPClient {
 
             try {
 
-                socket = new Socket("localhost", Integer.parseInt(args[1]));
+                socket = new Socket(args[0], Integer.parseInt(args[1]));
                 out = new PrintWriter(socket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             }
