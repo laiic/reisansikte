@@ -4,7 +4,9 @@ public abstract class SIPState {
 
     public abstract SIPState sendACK();
 
-    public abstract SIPState sendTRO();
+    public abstract SIPState sendTrying();
+
+    public abstract SIPState sendRinging();
 
     public abstract SIPState send_BYE();
 
@@ -14,7 +16,9 @@ public abstract class SIPState {
 
     public abstract SIPState receiveACK();
 
-    public abstract SIPState receiveTRO();
+    public abstract SIPState receiveTrying();
+
+    public abstract SIPState receiveRinging();
 
     public abstract SIPState receive_BYE();
 
