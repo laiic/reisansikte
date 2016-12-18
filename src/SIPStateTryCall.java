@@ -6,6 +6,7 @@ public class SIPStateTryCall extends SIPState {
 
     @Override
     public SIPState sendINVITE(String toIP, int port) {
+        System.out.println("Nu är vi inne i try call ass");
         return null;
     }
 
@@ -72,6 +73,6 @@ public class SIPStateTryCall extends SIPState {
     //public receiveinvitesendtro skickar en BUSY returnerar
 
     // ALLA metoder som svarar mot tillståndsövergångar kan deklareras här och ärvas
-    // och per default ge ett ERROR.
+    // s
 
 }

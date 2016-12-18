@@ -17,26 +17,25 @@ public class Caller implements Runnable {
     private static BufferedReader in = null;
     private static int PORT_NO = 5060;
     private String userInput = null;
+    SIPHandler sipHandler = new SIPHandler();
+    BufferedReader stdIn = null;
 
     @Override
     public void run() {
 
-        SIPHandler sipHandler = new SIPHandler();
-        String userInput = null;
+        sipHandler = new SIPHandler();
+        userInput = null;
 
-        BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("type INVITE (to_IP) (port) to make a call!");
+        stdIn = new BufferedReader(new InputStreamReader(System.in));
 
-        try {
-            userInput = stdIn.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        while (true) {
+
+            System.out.println("type INVITE (to_IP) (port) to make a call!");
+            sendMessage();
+
+
         }
-
-        String[] arr = userInput.split(" ");
-
-        sipHandler.processNextEvent(SIPHandler.SIPEvent.SEND_INVITE,arr[1],Integer.parseInt(arr[2]));
-
 
 //        try {
 //            socket = new Socket (args[1], Integer.parseInt(args[2])); //INET PORT.. SAMPT PORTNO
@@ -58,6 +57,36 @@ public class Caller implements Runnable {
 //        }
 //        System.out.println("Connected");
 
+
+    }
+
+    private void sendMessage() {
+
+
+        try {
+            userInput = stdIn.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        if(userInput.startsWith("INVITE")){
+            String[] arr = userInput.split(" ");
+            System.out.println("Connectar till IPno och PortNo: "+arr[1]+", " + arr[2]);
+            sipHandler.processNextEvent(SIPHandler.SIPEvent.SEND_INVITE, arr[1], Integer.parseInt(arr[2]));
+            arr = null;
+
+        }else if(userInput.startsWith("OK")){
+
+        }else if(userInput.startsWith("ACK")){
+
+        }else if(userInput.startsWith("BYE")){
+
+        }
+
+        String[] arr = userInput.split(" ");
+
+        sipHandler.processNextEvent(SIPHandler.SIPEvent.SEND_INVITE, arr[1], Integer.parseInt(arr[2]));
 
     }
 }

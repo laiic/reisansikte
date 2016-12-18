@@ -21,6 +21,8 @@ public class Callee implements Runnable {
     public void run() {
         try {
             ServerSocket serverSocket = new ServerSocket(PORT_NO);
+            System.out.println("väntar på connectino");
+
             socket = serverSocket.accept();
             System.out.println("Connected");
 
@@ -30,8 +32,10 @@ public class Callee implements Runnable {
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+            System.out.println(in.read());
+
 /**
- *  Skriv en loop som gör att den acceptar hela tiden..
+ *  Skriv en loop som gör att den acceptar hela tiden..s
  *
  * */
 
