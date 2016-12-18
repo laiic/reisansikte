@@ -27,20 +27,17 @@ public class Caller implements Runnable {
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("type INVITE (to_IP) (port) to make a call!");
 
-
         try {
             userInput = stdIn.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         String[] arr = userInput.split(" ");
 
-        //Skicka string 2 och 3 till INVITE
-        for ( String ss : arr) {
-            sipHandler.processNextEvent(SIPHandler.SIPEvent.SEND_INVITE);
-            System.out.println(ss);
-        }
-//
+        sipHandler.processNextEvent(SIPHandler.SIPEvent.SEND_INVITE,arr[1],Integer.parseInt(arr[2]));
+
+
 //        try {
 //            socket = new Socket (args[1], Integer.parseInt(args[2])); //INET PORT.. SAMPT PORTNO
 //            out = new PrintWriter(socket.getOutputStream(), true);

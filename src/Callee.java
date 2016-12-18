@@ -30,7 +30,10 @@ public class Callee implements Runnable {
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-
+/**
+ *  Skriv en loop som gör att den acceptar hela tiden..
+ *
+ * */
 
         } catch (IOException e) {
             System.err.println("Server crash");
