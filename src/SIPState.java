@@ -1,24 +1,28 @@
 public abstract class SIPState {
 
-    public abstract SIPState sendInvite();
+    public abstract SIPState sendINVITE(String toIP, int port);
 
-    public abstract SIPState sendACK();
+    public abstract SIPState sendACK(String toIP, int port);
 
-    public abstract SIPState sendTRO();
+    public abstract SIPState sendTRY(String toIP, int port);
 
-    public abstract SIPState send_BYE();
+    public abstract SIPState sendRINGING(String toIP, int port);
 
-    public abstract SIPState send_OK();
+    public abstract SIPState sendBYE(String toIP, int port);
 
-    public abstract SIPState receiveInvite();
+    public abstract SIPState sendOK(String toIP, int port);
+
+    public abstract SIPState receiveINVITE();
 
     public abstract SIPState receiveACK();
 
-    public abstract SIPState receiveTRO();
+    public abstract SIPState receiveTRY();
 
-    public abstract SIPState receive_BYE();
+    public abstract SIPState receiveRINGING();
 
-    public abstract SIPState receive_OK();
+    public abstract SIPState receiveBYE();
+
+    public abstract SIPState receiveOK();
 
     public abstract void printState();
 

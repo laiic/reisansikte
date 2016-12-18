@@ -5,33 +5,37 @@ public class SIPStateWaiting extends SIPState {
     }
 
     @Override
-    public SIPState sendInvite() {
-        return new SIPStateTryCall();
-    }
-
-    @Override
-    public SIPState sendACK() {
+    public SIPState sendINVITE(String toIP, int port) {
         return null;
     }
 
     @Override
-    public SIPState sendTRO() {
-        System.out.println("ERROR");
+    public SIPState sendACK(String toIP, int port) {
         return null;
     }
 
     @Override
-    public SIPState send_BYE() {
+    public SIPState sendTRY(String toIP, int port) {
         return null;
     }
 
     @Override
-    public SIPState send_OK() {
+    public SIPState sendRINGING(String toIP, int port) {
         return null;
     }
 
     @Override
-    public SIPState receiveInvite() {
+    public SIPState sendBYE(String toIP, int port) {
+        return null;
+    }
+
+    @Override
+    public SIPState sendOK(String toIP, int port) {
+        return null;
+    }
+
+    @Override
+    public SIPState receiveINVITE() {
         return null;
     }
 
@@ -41,17 +45,22 @@ public class SIPStateWaiting extends SIPState {
     }
 
     @Override
-    public SIPState receiveTRO() {
+    public SIPState receiveTRY() {
         return null;
     }
 
     @Override
-    public SIPState receive_BYE() {
+    public SIPState receiveRINGING() {
         return null;
     }
 
     @Override
-    public SIPState receive_OK() {
+    public SIPState receiveBYE() {
+        return null;
+    }
+
+    @Override
+    public SIPState receiveOK() {
         return null;
     }
 
