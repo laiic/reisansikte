@@ -1,68 +1,19 @@
+import java.io.IOException;
+import java.net.InetAddress;
+
 public class SIPStateTryCall extends SIPState {
 
-    public SIPStateTryCall() {
-
+    public SIPStateTryCall(PeerConnection peerConnection) {
+        super(peerConnection);
     }
 
-    @Override
-    public SIPState sendINVITE(String toIP, int port) {
-        System.out.println("Nu är vi inne i try call ass");
-        return null;
-    }
 
-    @Override
-    public SIPState sendACK(String toIP, int port) {
-        return null;
-    }
-
-    @Override
-    public SIPState sendTRY(String toIP, int port) {
-        return null;
-    }
-
-    @Override
-    public SIPState sendRINGING(String toIP, int port) {
-        return null;
-    }
-
-    @Override
-    public SIPState sendBYE(String toIP, int port) {
-        return null;
-    }
-
-    @Override
-    public SIPState sendOK(String toIP, int port) {
-        return null;
-    }
-
-    @Override
-    public SIPState receiveINVITE() {
-        return null;
-    }
-
-    @Override
-    public SIPState receiveACK() {
-        return null;
-    }
-
-    @Override
-    public SIPState receiveTRY() {
-        return null;
-    }
-
-    @Override
-    public SIPState receiveRINGING() {
-        return null;
-    }
-
-    @Override
-    public SIPState receiveBYE() {
-        return null;
-    }
-
-    @Override
     public SIPState receiveOK() {
-        return null;
+
+
+
+        peerConnection.sendMsg(SIPEvent.SEND_ACK);
+        return new SIPStateTalking(this.peerConnection);
     }
 
     @Override

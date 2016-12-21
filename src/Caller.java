@@ -1,92 +1,51 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.lang.annotation.Documented;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.util.Scanner;
 
-/**
- * Created by Reimondo and Daniel on 2016-12-17.
+/* This example demonstrates how to connect an AudioStream to
+ * a remote host.
+ * Usage: java Caller <callee's ip address>
+ * The port corresponding callee is provided by the user
+ * after startup.
  */
-public class Caller implements Runnable {
 
-    private static Socket socket = null;
-    private static PrintWriter out = null;
-    private static BufferedReader in = null;
-    private static int PORT_NO = 5060;
-    private String userInput = null;
-    SIPHandler sipHandler = new SIPHandler();
-    BufferedReader stdIn = null;
-
-    @Override
-    public void run() {
-
-        sipHandler = new SIPHandler();
-        userInput = null;
-
-        stdIn = new BufferedReader(new InputStreamReader(System.in));
-
-
-        while (true) {
-
-            System.out.println("type INVITE (to_IP) (port) to make a call!");
-            sendMessage();
-
-
-        }
-
-//        try {
-//            socket = new Socket (args[1], Integer.parseInt(args[2])); //INET PORT.. SAMPT PORTNO
-//            out = new PrintWriter(socket.getOutputStream(), true);
-//            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//
-//        } catch (IOException e) {
-//            System.err.println("Client crash");
-//        }      finally {
-//             out.close();
-//            try {
-//                in.close();
-//                stdIn.close();
-//                socket.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        }
-//        System.out.println("Connected");
-
-
-    }
-
-    private void sendMessage() {
-
-
-        try {
-            userInput = stdIn.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        if(userInput.startsWith("INVITE")){
-            String[] arr = userInput.split(" ");
-            System.out.println("Connectar till IPno och PortNo: "+arr[1]+", " + arr[2]);
-            sipHandler.processNextEvent(SIPHandler.SIPEvent.SEND_INVITE, arr[1], Integer.parseInt(arr[2]));
-            arr = null;
-
-        }else if(userInput.startsWith("OK")){
-
-        }else if(userInput.startsWith("ACK")){
-
-        }else if(userInput.startsWith("BYE")){
-
-        }
-
-        String[] arr = userInput.split(" ");
-
-        sipHandler.processNextEvent(SIPHandler.SIPEvent.SEND_INVITE, arr[1], Integer.parseInt(arr[2]));
-
-    }
+public class Caller {
+	
+	public static final int SIP_PORT = 5060;
+	
+	public static void main(String[] args) throws Exception {
+		if(args.length != 1) {
+			System.out.println("Usage: java Caller <callee's ip address>");
+			System.exit(0);
+		}
+		
+		Scanner scan = new Scanner(System.in);
+		AudioStreamUDP stream = null;
+		String reply;
+		try {
+			// The AudioStream object will create a socket,
+			// bound to a random port.
+			stream = new AudioStreamUDP();
+			int localPort = stream.getLocalPort();
+			System.out.println("Bound to local port = " + localPort);
+			
+			// Set the address and port for the callee.
+			System.out.println("What's the remote port number?");
+			reply = scan.nextLine().trim();
+			int remotePort = Integer.parseInt(reply);
+			InetAddress address = InetAddress.getByName(args[0]);
+			System.out.println(address + ", " + remotePort);
+			stream.connectTo(address, remotePort);
+			
+			System.out.println("Press ENTER to start streaming");
+			reply = scan.nextLine();
+			stream.startStreaming();
+			
+			System.out.println("Press ENTER to stop streaming");
+			reply = scan.nextLine();
+			stream.stopStreaming();
+		}
+		finally {
+			if(stream != null) stream.close();
+		}
+	}
 }

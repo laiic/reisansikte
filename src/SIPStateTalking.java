@@ -1,68 +1,57 @@
+import java.io.IOException;
+import java.net.InetAddress;
+
 public class SIPStateTalking extends SIPState {
 
-    public SIPStateTalking() {
+    boolean running;
+    public SIPStateTalking(PeerConnection peerConnection) {
+        super(peerConnection);
+        try {
+
+            System.out.println("Remote addr = " + RemoteInfo.addr + " Remote port = " + RemoteInfo.port);
+            RemoteInfo.audioStreamUDP.connectTo(InetAddress.getByName("localhost"), RemoteInfo.port);
+            RemoteInfo.audioStreamUDP.startStreaming();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                running = true;
+                while (running){
+
+                    peerConnection.sendMsg(SIPEvent.SEND_KEEPALIVE);
+                    try {
+                        Thread.currentThread().sleep(5000);
+                    } catch (InterruptedException e) {
+
+                    }
+                }
+
+            }
+        });
+        t.start();
 
     }
 
-
     @Override
-    public SIPState sendINVITE(String toIP, int port) {
-        return null;
-    }
+    public SIPState sendBYE() {
+        RemoteInfo.audioStreamUDP.stopStreaming();
+        RemoteInfo.audioStreamUDP.close();
+        running = false;
+        return new SIPStateDisconnect(peerConnection);
 
-    @Override
-    public SIPState sendACK(String toIP, int port) {
-        return null;
-    }
-
-    @Override
-    public SIPState sendTRY(String toIP, int port) {
-        return null;
-    }
-
-    @Override
-    public SIPState sendRINGING(String toIP, int port) {
-        return null;
-    }
-
-    @Override
-    public SIPState sendBYE(String toIP, int port) {
-        return null;
-    }
-
-    @Override
-    public SIPState sendOK(String toIP, int port) {
-        return null;
-    }
-
-    @Override
-    public SIPState receiveINVITE() {
-        return null;
-    }
-
-    @Override
-    public SIPState receiveACK() {
-        return null;
-    }
-
-    @Override
-    public SIPState receiveTRY() {
-        return null;
-    }
-
-    @Override
-    public SIPState receiveRINGING() {
-        return null;
     }
 
     @Override
     public SIPState receiveBYE() {
-        return null;
-    }
 
-    @Override
-    public SIPState receiveOK() {
-        return null;
+        RemoteInfo.audioStreamUDP.stopStreaming();
+        RemoteInfo.audioStreamUDP.close();
+        running = false;
+        peerConnection.sendMsg(SIPEvent.SEND_OK);
+        return new SIPStateWaiting(peerConnection);
     }
 
     @Override

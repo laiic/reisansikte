@@ -1,28 +1,56 @@
 public abstract class SIPState {
 
-    public abstract SIPState sendINVITE(String toIP, int port);
+    protected PeerConnection peerConnection;
 
-    public abstract SIPState sendACK(String toIP, int port);
+    public SIPState ( PeerConnection peerConnection ) {
 
-    public abstract SIPState sendTRY(String toIP, int port);
+        this.peerConnection = peerConnection;
 
-    public abstract SIPState sendRINGING(String toIP, int port);
+    }
 
-    public abstract SIPState sendBYE(String toIP, int port);
+    public SIPState sendINVITE() { return this; }
 
-    public abstract SIPState sendOK(String toIP, int port);
+    public  SIPState sendACK(){
+        return this;
+    }
 
-    public abstract SIPState receiveINVITE();
+    public  SIPState sendTRY(){
+        return this;
+    }
 
-    public abstract SIPState receiveACK();
+    public  SIPState sendRINGING(){
+        return this;
+    }
 
-    public abstract SIPState receiveTRY();
+    public  SIPState sendBYE()
+    {
+        return this;
+    }
+    public  SIPState sendOK(){
+        return this;
+    }
 
-    public abstract SIPState receiveRINGING();
+    public  SIPState receiveINVITE() { return this;}
 
-    public abstract SIPState receiveBYE();
+    public  SIPState receiveACK(){
+        return this;
+    }
 
-    public abstract SIPState receiveOK();
+    public  SIPState receiveTRY(){
+        return this;
+    }
+
+    public  SIPState receiveRINGING(){
+        return this;
+    }
+
+    public  SIPState receiveBYE(){
+        return this;
+    }
+
+    public  SIPState receiveOK(){
+        return this;
+    }
 
     public abstract void printState();
 
