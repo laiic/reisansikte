@@ -58,4 +58,9 @@ public class SIPStateTalking extends SIPState {
     public void printState() {
         System.out.println("vi är i talking state");
     }
+
+    @Override
+    public void sendBUSY() {
+
+    }
 }

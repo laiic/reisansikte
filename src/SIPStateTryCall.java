@@ -9,9 +9,6 @@ public class SIPStateTryCall extends SIPState {
 
 
     public SIPState receiveOK() {
-
-
-
         peerConnection.sendMsg(SIPEvent.SEND_ACK);
         return new SIPStateTalking(this.peerConnection);
     }
@@ -19,6 +16,11 @@ public class SIPStateTryCall extends SIPState {
     @Override
     public void printState() {
         System.out.println("Vi är i tryCall state");
+    }
+
+    @Override
+    public void sendBUSY() {
+
     }
 
     //public receiveinvitesendtro skickar en BUSY returnerar

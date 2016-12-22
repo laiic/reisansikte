@@ -14,4 +14,9 @@ public class SIPStateDisconnect extends SIPState {
     public void printState() {
         System.out.println("we are in the disconnectState");
     }
+
+    @Override
+    public void sendBUSY() {
+
+    }
 }

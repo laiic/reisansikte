@@ -19,4 +19,9 @@ public class SIPStateRespondeCall extends SIPState {
         System.out.println("We are in the RespondeState");
     }
 
+    @Override
+    public void sendBUSY() {
+
+    }
+
 }

@@ -54,6 +54,8 @@ public abstract class SIPState {
 
     public abstract void printState();
 
+    public abstract void sendBUSY();
+
     //Samtliga metoder som hör till tillståndsövergångar
 
     // incInviteSendingTRO - byt till respCall

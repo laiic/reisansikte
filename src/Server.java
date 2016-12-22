@@ -14,8 +14,6 @@ public class Server implements Runnable {
     private BlockingQueue<String> queue;
     private SIPLogic sipLogic;
 
-
-
     public Server( BlockingQueue<String> queue, SIPLogic sipLogic){
 
         this.queue = queue;
@@ -26,7 +24,7 @@ public class Server implements Runnable {
     public void run() {
 
         try {
-            ServerSocket serverSocket = new ServerSocket(5061);
+            ServerSocket serverSocket = new ServerSocket(5060);
 
 
             while (true){
@@ -42,6 +40,7 @@ public class Server implements Runnable {
                             BufferedReader in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
                             newSocket.setSoTimeout(10000);
                             Thread t = new Thread(new Runnable() {
+
                                 @Override
                                 public void run() {
 
@@ -56,9 +55,7 @@ public class Server implements Runnable {
 
                                         out.println(msg);
 
-
                                     }
-
                                 }
                             });
                             t.start();
@@ -113,8 +110,6 @@ public class Server implements Runnable {
                         System.out.println("Thread finished");
                     }
                 }).start();
-
-
             }
 
         } catch (IOException e) {

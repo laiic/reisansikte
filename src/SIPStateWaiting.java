@@ -32,4 +32,9 @@ public class SIPStateWaiting extends SIPState {
     public void printState() {
         System.out.println("We are in waiting!");
     }
+
+    @Override
+    public void sendBUSY() {
+        peerConnection.sendMsg(SIPEvent.SEND_BUSY);
+    }
 }

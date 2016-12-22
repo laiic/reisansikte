@@ -126,11 +126,9 @@ public class Client implements Runnable {
                     e.printStackTrace();
                 }
                 sipLogic.processNextEvent(SIPEvent.SEND_BYE);
-
             }
         }
 
         //System.out.println("Client handler stopped");
     }
-
 }

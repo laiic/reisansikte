@@ -3,5 +3,5 @@
  */
 public interface SIPLogic {
 
-    public void processNextEvent(SIPEvent event);
+     void processNextEvent(SIPEvent event);
 }
