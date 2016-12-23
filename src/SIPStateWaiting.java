@@ -40,6 +40,7 @@ public class SIPStateWaiting extends SIPState {
 
             System.out.println("e vi inne i while?");
             if(msg.equals("OK")) {
+                peerConnection.sendMsg(SIPEvent.SEND_OK);
                 System.out.println("är vi här?");
                 return new SIPStateRespondeCall(this.peerConnection);
             }
