@@ -8,22 +8,7 @@ public class SIPStateTryCall extends SIPState {
     }
 
 
-    public SIPState receiveTRY(){
-        System.out.println("TRY received");
-        return null;
-    }
-
-    public SIPState receiveRINGING() {
-        System.out.println("RINGING");
-        return null;
-    }
-
-    public SIPState receiveOK(){
-        System.out.println("OK received");
-        return null;
-    }
-
-    public SIPState sendACK(){
+    public SIPState receiveOK() {
         peerConnection.sendMsg(SIPEvent.SEND_ACK);
         return new SIPStateTalking(this.peerConnection);
     }

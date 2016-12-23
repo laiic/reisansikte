@@ -126,13 +126,6 @@ public class Client implements Runnable {
                     e.printStackTrace();
                 }
                 sipLogic.processNextEvent(SIPEvent.SEND_BYE);
-            }else if(msg.equals("OK")){
-                try{
-                    queue.put("OK");
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-                sipLogic.processNextEvent(SIPEvent.SEND_OK);
             }
         }
 
