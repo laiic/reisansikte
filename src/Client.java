@@ -87,13 +87,13 @@ public class Client implements Runnable {
                                 switch (command){
 
                                     case "ACK":
-                                        sipLogic.processNextEvent(SIPEvent.SEND_ACK);
+                                  //      sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK);
                                         break;
                                     case "TRYING":
-                                       // sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY);
                                         break;
                                     case "RINGING":
-                                       // sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING);
+                                       sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING);
                                         break;
                                     case "OK":
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_OK);
