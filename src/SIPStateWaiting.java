@@ -8,9 +8,8 @@ import java.nio.Buffer;
 import java.util.Scanner;
 
 
-
 public class SIPStateWaiting extends SIPState {
-    private  Socket socket = null;
+    private Socket socket = null;
     private PrintWriter out = null;
     private BufferedReader in = null;
 
@@ -29,27 +28,10 @@ public class SIPStateWaiting extends SIPState {
 
         peerConnection.sendMsg(SIPEvent.SEND_TRY);
         peerConnection.sendMsg(SIPEvent.SEND_RINGING);
-        //peerConnection.sendMsg(SIPEvent.SEND_OK);
-
-        in = new BufferedReader(new InputStreamReader(System.in));
-        String msg = "";
-
-
-        System.out.println("hej");
-        while((msg = in.readLine()) != null) {
-
-            System.out.println("e vi inne i while?");
-            if(msg.equals("OK")) {
-                peerConnection.sendMsg(SIPEvent.SEND_OK);
-                System.out.println("är vi här?");
-                return new SIPStateRespondeCall(this.peerConnection);
-            }
-        }
-
-        System.out.println("utanför while");
-
-        return new SIPStateWaiting(this.peerConnection);
+        peerConnection.sendMsg(SIPEvent.SEND_OK);
+        return new SIPStateRespondeCall(this.peerConnection);
     }
+
 
     public void printState() {
         System.out.println("We are in waiting!");
