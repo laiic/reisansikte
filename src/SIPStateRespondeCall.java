@@ -10,7 +10,6 @@ public class SIPStateRespondeCall extends SIPState {
     @Override
     public SIPState receiveACK() {
 
-
         return new SIPStateTalking(this.peerConnection);
     }
 

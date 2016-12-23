@@ -25,7 +25,6 @@ public class SIPStateWaiting extends SIPState {
 
         peerConnection.sendMsg(SIPEvent.SEND_TRY);
         peerConnection.sendMsg(SIPEvent.SEND_RINGING);
-
         while (true) {
             BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
             try {
@@ -38,6 +37,7 @@ public class SIPStateWaiting extends SIPState {
                 e.printStackTrace();
             }
         }
+
 
     }
 
