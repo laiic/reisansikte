@@ -31,15 +31,21 @@ public class SIPStateWaiting extends SIPState {
         peerConnection.sendMsg(SIPEvent.SEND_RINGING);
         //peerConnection.sendMsg(SIPEvent.SEND_OK);
 
-        BufferedReader stdIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
         String msg = "";
 
+
+        System.out.println("hej");
         while((msg = stdIn.readLine()) != null) {
 
+            System.out.println("e vi inne i while?");
             if(msg.equals("OK")) {
+                System.out.println("är vi här?");
                 return new SIPStateRespondeCall(this.peerConnection);
             }
         }
+
+        System.out.println("utanför while");
 
         return new SIPStateWaiting(this.peerConnection);
     }
