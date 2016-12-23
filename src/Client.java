@@ -125,7 +125,13 @@ public class Client implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                sipLogic.processNextEvent(SIPEvent.SEND_BYE);
+
+                try {
+                    sipLogic.processNextEvent(SIPEvent.SEND_BYE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
 
