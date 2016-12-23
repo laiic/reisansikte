@@ -4,6 +4,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.Buffer;
+import java.util.Scanner;
+
+
 
 public class SIPStateWaiting extends SIPState {
     private  Socket socket = null;
@@ -21,12 +25,23 @@ public class SIPStateWaiting extends SIPState {
     }
 
     @Override
-    public SIPState receiveINVITE() {
+    public SIPState receiveINVITE() throws IOException {
 
         peerConnection.sendMsg(SIPEvent.SEND_TRY);
         peerConnection.sendMsg(SIPEvent.SEND_RINGING);
-        peerConnection.sendMsg(SIPEvent.SEND_OK);
-        return new SIPStateRespondeCall(this.peerConnection);
+        //peerConnection.sendMsg(SIPEvent.SEND_OK);
+
+        BufferedReader stdIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        String msg = "";
+
+        while((msg = stdIn.readLine()) != null) {
+
+            if(msg.equals("OK")) {
+                return new SIPStateRespondeCall(this.peerConnection);
+            }
+        }
+
+        return new SIPStateWaiting(this.peerConnection);
     }
 
     public void printState() {

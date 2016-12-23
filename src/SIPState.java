@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public abstract class SIPState {
 
     protected PeerConnection peerConnection;
@@ -30,7 +32,7 @@ public abstract class SIPState {
         return this;
     }
 
-    public  SIPState receiveINVITE() { return this;}
+    public  SIPState receiveINVITE() throws IOException { return this;}
 
     public  SIPState receiveACK(){
         return this;
