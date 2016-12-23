@@ -105,7 +105,6 @@ public class Client implements Runnable {
                                     case "INVITE":
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE);
                                         break;
-
                                 }
 
                             }

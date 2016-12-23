@@ -10,7 +10,7 @@ public class SIPHandler implements SIPLogic{
     }
 
     @Override
-    public void processNextEvent(SIPEvent event) throws IOException {
+    public void processNextEvent(SIPEvent event) {
 
         switch(event) {
 
