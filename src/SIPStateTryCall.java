@@ -11,13 +11,13 @@ public class SIPStateTryCall extends SIPState {
     public SIPState receiveTRY() {
             System.out.println("Try received");
 
-        //  peerConnection.sendMsg(SIPEvent.SEND_ACK);
-        return null;
+        //  peerConnection.sendMsg(SIPEv
+        return new SIPStateTryCall(this.peerConnection);
     }
 
     public SIPState receiveRINGING() {
         System.out.println("RINGING received");
-        return null;
+        return new SIPStateTryCall(this.peerConnection);
     }
 
     public SIPState receiveOK() {

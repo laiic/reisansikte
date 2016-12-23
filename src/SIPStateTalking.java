@@ -32,7 +32,6 @@ public class SIPStateTalking extends SIPState {
             }
         });
         t.start();
-
     }
 
     @Override
