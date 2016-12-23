@@ -6,7 +6,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 public class SIPStateWaiting extends SIPState {
-    private  Socket socket = null;
+    private Socket socket = null;
     private PrintWriter out = null;
     private BufferedReader in = null;
 
@@ -25,8 +25,20 @@ public class SIPStateWaiting extends SIPState {
 
         peerConnection.sendMsg(SIPEvent.SEND_TRY);
         peerConnection.sendMsg(SIPEvent.SEND_RINGING);
-        peerConnection.sendMsg(SIPEvent.SEND_OK);
-        return new SIPStateRespondeCall(this.peerConnection);
+
+        while (true) {
+            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+            try {
+                String s = bufferRead.readLine();
+                if (s.equals("OK")) {
+                    peerConnection.sendMsg(SIPEvent.SEND_OK);
+                    return new SIPStateRespondeCall(this.peerConnection);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void printState() {
