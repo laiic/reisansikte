@@ -75,6 +75,7 @@ public class Client implements Runnable {
 
                             while ((command =in.readLine()) != null){
                                 System.out.println(command);
+                                System.out.println("Vem skrev? "+ command);
                                 String []args = command.split(" ");
 
                                 if (args[0].equals("OK") && args.length == 2){

@@ -9,8 +9,9 @@ public class SIPStateTryCall extends SIPState {
 
 
     public SIPState receiveOK() {
-        peerConnection.sendMsg(SIPEvent.SEND_ACK);
-        return new SIPStateTalking(this.peerConnection);
+            System.out.println("Send an ACK");
+        //  peerConnection.sendMsg(SIPEvent.SEND_ACK);
+        return null;
     }
 
     @Override
