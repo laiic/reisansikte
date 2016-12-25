@@ -6,4 +6,6 @@ import java.io.IOException;
 public interface SIPLogic {
 
      void processNextEvent(SIPEvent event) throws IOException;
+
+     void printState();
 }

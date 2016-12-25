@@ -32,6 +32,7 @@ public class Server implements Runnable {
 
             while (true){
 
+                sipLogic.printState();
                 Socket newSocket = serverSocket.accept();
 
 
@@ -63,7 +64,7 @@ public class Server implements Runnable {
                             });
                             t.start();
 
-
+                            sipLogic.printState();
 
                             String command;
 

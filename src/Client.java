@@ -31,6 +31,8 @@ public class Client implements Runnable {
 
 
         while (true) {
+
+            sipLogic.printState();
             msg = scanner.nextLine();
 
             String [] args = msg.split(" ");
@@ -71,11 +73,13 @@ public class Client implements Runnable {
                             });
                             t.start();
 
+                            sipLogic.printState();
                             String command;
 
                             while ((command =in.readLine()) != null){
                                 System.out.println(command);
                                 System.out.println("Vem skrev? "+ command);
+                                sipLogic.printState();
                                 String []args = command.split(" ");
 
                                 if (args[0].equals("OK") && args.length == 2){
@@ -135,11 +139,11 @@ public class Client implements Runnable {
             }
 
             else if(msg.equals("OK")) {
-                try {
-                    queue.put("OK");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    queue.put("OK");
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 
                 try {
                     sipLogic.processNextEvent(SIPEvent.SEND_OK);
