@@ -67,8 +67,6 @@ public class Client implements Runnable {
                                         }
 
                                         out.println(msg);
-
-
                                     }
 
                                 }

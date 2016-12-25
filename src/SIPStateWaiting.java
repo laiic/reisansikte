@@ -29,12 +29,14 @@ public class SIPStateWaiting extends SIPState {
         return new SIPStateRespondeCall(this.peerConnection);
     }
 
+    @Override
     public void printState() {
         System.out.println("We are in waiting!");
     }
 
     @Override
-    public void sendBUSY() {
+    public SIPState sendBUSY() {
         peerConnection.sendMsg(SIPEvent.SEND_BUSY);
+        return new SIPStateWaiting(this.peerConnection);
     }
 }

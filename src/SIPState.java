@@ -56,7 +56,7 @@ public abstract class SIPState {
 
     public abstract void printState();
 
-    public abstract void sendBUSY();
+    public abstract SIPState sendBUSY();
 
     //Samtliga metoder som hör till tillståndsövergångar
 

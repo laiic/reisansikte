@@ -41,12 +41,10 @@ public class SIPStateTalking extends SIPState {
         running = false;
         peerConnection.sendMsg(SIPEvent.SEND_BYE);
         return new SIPStateDisconnect(peerConnection);
-
     }
 
     @Override
     public SIPState receiveBYE() {
-
         RemoteInfo.audioStreamUDP.stopStreaming();
         RemoteInfo.audioStreamUDP.close();
         running = false;
@@ -60,7 +58,8 @@ public class SIPStateTalking extends SIPState {
     }
 
     @Override
-    public void sendBUSY() {
-
+    public SIPState sendBUSY() {
+        peerConnection.sendMsg(SIPEvent.SEND_BUSY);
+        return new SIPStateTalking(peerConnection);
     }
 }
