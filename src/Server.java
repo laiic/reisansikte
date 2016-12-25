@@ -32,9 +32,7 @@ public class Server implements Runnable {
 
             while (true){
 
-                sipLogic.printState();
                 Socket newSocket = serverSocket.accept();
-
 
                 new Thread(new Runnable() {
                     @Override
@@ -64,12 +62,11 @@ public class Server implements Runnable {
                             });
                             t.start();
 
-                            sipLogic.printState();
-
                             String command;
 
                             while ((command =in.readLine()) != null){
                                 System.out.println(command);
+                                sipLogic.printState();
                                 String []args = command.split(" ");
 
                                 if (  args.length == 3 && args[0].equals("INVITE")){
