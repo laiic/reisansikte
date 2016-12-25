@@ -21,6 +21,13 @@ public class SIPStateRespondeCall extends SIPState {
     }
 
     @Override
+    public SIPState sendOK() {
+
+        peerConnection.sendMsg(SIPEvent.SEND_OK);
+        return new SIPStateRespondeCall(this.peerConnection);
+    }
+
+    @Override
     public void sendBUSY() {
 
     }

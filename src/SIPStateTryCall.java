@@ -40,5 +40,4 @@ public class SIPStateTryCall extends SIPState {
 
     // ALLA metoder som svarar mot tillståndsövergångar kan deklareras här och ärvas
     // s
-
 }

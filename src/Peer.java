@@ -29,7 +29,6 @@ public class Peer implements PeerConnection{
 
     }
 
-
     @Override
     public void sendMsg(SIPEvent msg) {
         try {
@@ -61,6 +60,5 @@ public class Peer implements PeerConnection{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }

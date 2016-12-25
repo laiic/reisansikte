@@ -29,7 +29,6 @@ public class SIPStateWaiting extends SIPState {
         return new SIPStateRespondeCall(this.peerConnection);
     }
 
-
     public void printState() {
         System.out.println("We are in waiting!");
     }
