@@ -32,6 +32,7 @@ public class Client implements Runnable {
 
         while (true) {
 
+            System.out.println("Tillbaka här Client");
             sipLogic.printState();
             msg = scanner.nextLine();
 
@@ -124,11 +125,11 @@ public class Client implements Runnable {
 
             }else if (msg.equals("BYE")) {
 
-                try {
-                    queue.put("BYE");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    queue.put("BYE");
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 
                 try {
                     sipLogic.processNextEvent(SIPEvent.SEND_BYE);

@@ -39,6 +39,7 @@ public class SIPStateTalking extends SIPState {
         RemoteInfo.audioStreamUDP.stopStreaming();
         RemoteInfo.audioStreamUDP.close();
         running = false;
+        peerConnection.sendMsg(SIPEvent.SEND_BYE);
         return new SIPStateDisconnect(peerConnection);
 
     }

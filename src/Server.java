@@ -32,6 +32,7 @@ public class Server implements Runnable {
 
             while (true){
 
+                System.out.println("Tillbaka här");
                 sipLogic.printState();
                 Socket newSocket = serverSocket.accept();
 
