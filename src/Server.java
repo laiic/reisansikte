@@ -113,11 +113,21 @@ public class Server implements Runnable {
 
                         catch(SocketTimeoutException e) {
                             System.err.println("Socket timeout: " + e.getMessage());
+                            try {
+                                newSocket.close();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
 
                         }
 
                         catch (IOException e) {
                             e.printStackTrace();
+                            try {
+                                newSocket.close();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
                         }
 
                         System.out.println("Thread finished");
