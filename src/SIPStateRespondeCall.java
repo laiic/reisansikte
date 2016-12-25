@@ -9,7 +9,7 @@ public class SIPStateRespondeCall extends SIPState {
         peerConnection.sendMsg(SIPEvent.SEND_TRY);
         peerConnection.sendMsg(SIPEvent.SEND_RINGING);
         System.out.println("To respond type OK, timeout in 15 sek: ");
-        
+
     }
 
     @Override

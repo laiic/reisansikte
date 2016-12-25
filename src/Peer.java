@@ -17,12 +17,13 @@ public class Peer implements PeerConnection{
 
     private BlockingQueue<String> queue;
     private String myIpAddr;
+    protected  SIPLogic sipLogic;
 
     public Peer() throws IOException {
 
         myIpAddr= InetAddress.getLocalHost().getHostAddress();
 
-        SIPLogic sipLogic = new SIPHandler(this);
+        sipLogic = new SIPHandler(this);
         this.queue = new LinkedBlockingQueue<>();
         new Thread(new Server(queue, sipLogic)).start();
         new Thread(new Client(queue, sipLogic, myIpAddr)).start();
