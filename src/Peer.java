@@ -28,6 +28,9 @@ public class Peer implements PeerConnection{
         new Thread(new Server(queue, sipLogic)).start();
         new Thread(new Client(queue, sipLogic, myIpAddr)).start();
 
+//
+//        new Thread(new Server(queue)).start();
+//        new Thread(new Client(queue, myIpAddr)).start();
     }
 
     @Override
