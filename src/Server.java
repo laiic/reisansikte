@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -14,6 +15,7 @@ public class Server implements Runnable {
 
     private BlockingQueue<String> queue;
     private SIPLogic sipLogic;
+    private Scanner scanner= null;
 
     public Server( BlockingQueue<String> queue, SIPLogic sipLogic){
 
@@ -60,6 +62,10 @@ public class Server implements Runnable {
                                 }
                             });
                             t.start();
+
+                            if(scanner.nextLine().equals("OK")){
+                                sipLogic.processNextEvent(SIPEvent.SEND_OK);
+                            }
 
                             String command;
 
