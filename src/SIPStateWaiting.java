@@ -26,9 +26,6 @@ public class SIPStateWaiting extends SIPState {
     @Override
     public SIPState receiveINVITE(){
 
-        peerConnection.sendMsg(SIPEvent.SEND_TRY);
-        peerConnection.sendMsg(SIPEvent.SEND_RINGING);
-        peerConnection.sendMsg(SIPEvent.SEND_OK);
         return new SIPStateRespondeCall(this.peerConnection);
     }
 

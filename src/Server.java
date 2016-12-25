@@ -38,7 +38,7 @@ public class Server implements Runnable {
                         try {
                             PrintWriter out = new PrintWriter(newSocket.getOutputStream(), true);
                             BufferedReader in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
-                            newSocket.setSoTimeout(10000);
+                            newSocket.setSoTimeout(15000);
                             Thread t = new Thread(new Runnable() {
 
                                 @Override
