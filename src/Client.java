@@ -133,6 +133,20 @@ public class Client implements Runnable {
                 }
 
             }
+
+            else if(msg.equals("OK")) {
+                try {
+                    queue.put("OK");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    sipLogic.processNextEvent(SIPEvent.SEND_OK);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         //System.out.println("Client handler stopped");
