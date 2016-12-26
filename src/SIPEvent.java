@@ -16,5 +16,6 @@ public enum SIPEvent {
     RECEIVE_BYE,
     SEND_KEEPALIVE,
     RECEIVE_OK,
-    SEND_BUSY
+    SEND_BUSY,
+    SEND_ERROR
 }

@@ -2,8 +2,7 @@ import java.io.IOException;
 
 public class SIPHandler implements SIPLogic{
 
-
-    private SIPState currentState;
+    private SIPState currentState; // DATA BEHÖVS FÖR ATT KUNNA SKICKA I PARAMETRAR
 
     public SIPHandler(PeerConnection peerConnection) {
         currentState = new SIPStateWaiting(peerConnection);
@@ -14,7 +13,7 @@ public class SIPHandler implements SIPLogic{
 
         switch(event) {
 
-            case SEND_INVITE: currentState = currentState.sendINVITE(); break;  // döp inspirereat av PDU:erna INVITE, TRO, ACK
+            case SEND_INVITE: currentState = currentState.sendINVITE(/*  */); break;  // döp inspirereat av PDU:erna INVITE, TRO, ACK
             case SEND_TRY: currentState = currentState.sendTRY(); break;
             case SEND_RINGING: currentState = currentState.sendRINGING(); break;
             case SEND_ACK: currentState = currentState.sendACK(); break;

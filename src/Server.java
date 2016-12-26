@@ -27,7 +27,7 @@ public class Server implements Runnable {
     public void run() {
 
         try {
-            ServerSocket serverSocket = new ServerSocket(5060);
+            ServerSocket serverSocket = new ServerSocket(5062);
 
 
             while (true){
@@ -102,6 +102,8 @@ public class Server implements Runnable {
                                     case "INVITE":
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE);
                                         break;
+
+                                        //default : fel
 
                                 }
 

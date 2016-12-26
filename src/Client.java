@@ -94,7 +94,7 @@ public class Client implements Runnable {
                                     case "ACK":
                                   //      sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK);
                                         break;
-                                    case "TRYING":
+                                    case "TRYING": // " 2345"
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY);
                                         break;
                                     case "RINGING":
@@ -106,7 +106,7 @@ public class Client implements Runnable {
                                     case "BYE":
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
                                         break;
-                                    case "INVITE":
+                                    case "INVITE":  // " 1234"
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE);
                                         break;
                                 }
@@ -126,11 +126,11 @@ public class Client implements Runnable {
 
             }else if (msg.equals("BYE")) {
 
-//                try {
-//                    queue.put("BYE");
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    queue.put("BYE");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 try {
                     sipLogic.processNextEvent(SIPEvent.SEND_BYE);

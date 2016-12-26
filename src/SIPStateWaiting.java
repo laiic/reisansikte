@@ -24,8 +24,8 @@ public class SIPStateWaiting extends SIPState {
     }
 
     @Override
-    public SIPState receiveINVITE(){
-
+    public SIPState receiveINVITE(/* LÄGG TILL PARAMETERAR HÄR, HANDLER SER TILL ATT SKICKA DE DATA SOM BEHÖVS */){
+           // FÖR ATT *HÄR* KUNNA SKICKA TRO
         return new SIPStateRespondeCall(this.peerConnection);
     }
 

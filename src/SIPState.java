@@ -32,7 +32,7 @@ public abstract class SIPState {
         return this;
     }
 
-    public  SIPState receiveINVITE() { return this;}
+    public  SIPState receiveINVITE() { return this;} // RETURN WAITING
 
     public  SIPState receiveACK(){
         return this;
