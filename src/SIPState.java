@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.net.InetAddress;
 
 public abstract class SIPState {
 
@@ -10,46 +11,46 @@ public abstract class SIPState {
 
     }
 
-    public SIPState sendINVITE() { return new SIPStateWaiting(peerConnection); }
+    public SIPState sendINVITE(InetAddress address) { return new SIPStateWaiting(peerConnection); }
 
-    public  SIPState sendACK(){ return new SIPStateWaiting(peerConnection); }
+    public  SIPState sendACK(InetAddress address){ return new SIPStateWaiting(peerConnection); }
 
-    public  SIPState sendTRY(){
+    public  SIPState sendTRY(InetAddress address){
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState sendRINGING(){
+    public  SIPState sendRINGING(InetAddress address){
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState sendBYE()
+    public  SIPState sendBYE(InetAddress address)
     {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState sendOK(){
+    public  SIPState sendOK(InetAddress address){
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveINVITE() { return new SIPStateWaiting(peerConnection);} // RETURN WAITING
+    public  SIPState receiveINVITE(InetAddress address) { return new SIPStateWaiting(peerConnection);} // RETURN WAITING
 
-    public  SIPState receiveACK(){
+    public  SIPState receiveACK(InetAddress address){
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveTRY(){
+    public  SIPState receiveTRY(InetAddress address){
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveRINGING(){
+    public  SIPState receiveRINGING(InetAddress address){
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveBYE(){
+    public  SIPState receiveBYE(InetAddress address){
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveOK(){
+    public  SIPState receiveOK(InetAddress address){
         return new SIPStateWaiting(peerConnection);
     }
 
