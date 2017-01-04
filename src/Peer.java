@@ -52,7 +52,6 @@ public class Peer implements PeerConnection{
                     break;
                 case SEND_INVITE:
                     queue.put("INVITE");
-                    queue.put("INVITE");
                     break;
                 case SEND_OK:
                     queue.put("OK " + RemoteInfo.mySipPort);
