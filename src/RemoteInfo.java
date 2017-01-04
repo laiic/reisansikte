@@ -7,6 +7,8 @@ public class RemoteInfo {
 
     public static AudioStreamUDP audioStreamUDP;
     public static int mySipPort;
+    public static String addr;
+    public static int port;
 
     static {
         try {
@@ -18,6 +20,5 @@ public class RemoteInfo {
 
 
     }
-    public static String addr;
-    public static int port;
+
 }

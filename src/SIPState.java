@@ -10,48 +10,47 @@ public abstract class SIPState {
 
     }
 
-    public SIPState sendINVITE() { return this; }
+    public SIPState sendINVITE() { return new SIPStateWaiting(peerConnection); }
 
-    public  SIPState sendACK(){
-        return this;
-    }
+    public  SIPState sendACK(){ return new SIPStateWaiting(peerConnection); }
 
     public  SIPState sendTRY(){
-        return this;
+        return new SIPStateWaiting(peerConnection);
     }
 
     public  SIPState sendRINGING(){
-        return this;
+        return new SIPStateWaiting(peerConnection);
     }
 
     public  SIPState sendBYE()
     {
-        return this;
-    }
-    public  SIPState sendOK(){
-        return this;
+        return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveINVITE() { return this;} // RETURN WAITING
+    public  SIPState sendOK(){
+        return new SIPStateWaiting(peerConnection);
+    }
+
+    public  SIPState receiveINVITE() { return new SIPStateWaiting(peerConnection);} // RETURN WAITING
 
     public  SIPState receiveACK(){
-        return this;
+        return new SIPStateWaiting(peerConnection);
     }
 
     public  SIPState receiveTRY(){
-        return this;
+        return new SIPStateWaiting(peerConnection);
     }
 
     public  SIPState receiveRINGING(){
-        return this;
+        return new SIPStateWaiting(peerConnection);
     }
 
     public  SIPState receiveBYE(){
-        return this;
+        return new SIPStateWaiting(peerConnection);
     }
 
     public  SIPState receiveOK(){
-        return this;
+        return new SIPStateWaiting(peerConnection);
     }
 
     public abstract void printState();
