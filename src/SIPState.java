@@ -5,52 +5,53 @@ public abstract class SIPState {
 
     protected PeerConnection peerConnection;
 
-    public SIPState ( PeerConnection peerConnection ) {
+    public SIPState(PeerConnection peerConnection) {
 
         this.peerConnection = peerConnection;
 
     }
 
-    public SIPState sendINVITE(InetAddress address) { return new SIPStateWaiting(peerConnection); }
-
-    public  SIPState sendACK(InetAddress address){ return new SIPStateWaiting(peerConnection); }
-
-    public  SIPState sendTRY(InetAddress address){
+    public SIPState sendINVITE() {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState sendRINGING(InetAddress address){
+    public SIPState sendACK() {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState sendBYE(InetAddress address)
-    {
+    public SIPState sendTRY() {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState sendOK(InetAddress address){
+    public SIPState sendRINGING() {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveINVITE(InetAddress address) { return new SIPStateWaiting(peerConnection);} // RETURN WAITING
-
-    public  SIPState receiveACK(InetAddress address){
+    public SIPState sendBYE() {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveTRY(InetAddress address){
+    public SIPState sendOK() {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveRINGING(InetAddress address){
+    public SIPState receiveINVITE() {return new SIPStateWaiting(peerConnection);} // RETURN WAITING
+
+    public SIPState receiveACK() {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveBYE(InetAddress address){
+    public SIPState receiveTRY() {return new SIPStateWaiting(peerConnection);}
+
+    public SIPState receiveRINGING() {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public  SIPState receiveOK(InetAddress address){
+    public SIPState receiveBYE() {
+        return new SIPStateWaiting(peerConnection);
+    }
+
+    public SIPState receiveOK() {
         return new SIPStateWaiting(peerConnection);
     }
 
@@ -67,7 +68,7 @@ public abstract class SIPState {
     // receivedBYEsendOK - byt till Waiting
     // sendBYE - byt till Disconnect
     // receiveOK - byt til Waiting
-     // asdasdasd eSeder
+    // asdasdasd eSeder
 
 }
 

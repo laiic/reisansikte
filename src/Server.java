@@ -82,6 +82,7 @@ public class Server implements Runnable {
 
                                 }
 
+
                                 switch (command){
 
                                     case "ACK":

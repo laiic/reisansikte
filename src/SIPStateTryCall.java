@@ -10,8 +10,6 @@ public class SIPStateTryCall extends SIPState {
 
     public SIPState receiveTRY() {
             System.out.println("Try received");
-
-        //  peerConnection.sendMsg(SIPEv
         return new SIPStateTryCall(this.peerConnection);
     }
 

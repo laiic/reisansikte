@@ -6,7 +6,7 @@ import java.net.InetAddress;
  */
 public interface SIPLogic {
 
-     void processNextEvent(SIPEvent event, InetAddress address) throws IOException;
+     void processNextEvent(SIPEvent event   ) throws IOException;
 
      void printState();
 }

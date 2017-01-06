@@ -26,6 +26,9 @@ public class SIPStateWaiting extends SIPState {
     @Override
     public SIPState receiveINVITE(/* LÄGG TILL PARAMETERAR HÄR, HANDLER SER TILL ATT SKICKA DE DATA SOM BEHÖVS */){
            // FÖR ATT *HÄR* KUNNA SKICKA TRO
+        peerConnection.sendMsg(SIPEvent.SEND_TRY);   //  TRO     OK +
+        peerConnection.sendMsg(SIPEvent.SEND_RINGING);
+        System.out.println("To respond type OK a, timeout in 15 sek: ");
         return new SIPStateRespondeCall(this.peerConnection);
     }
 

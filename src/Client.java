@@ -154,7 +154,6 @@ public class Client implements Runnable {
                 }
             }
         }
-
         //System.out.println("Client handler stopped");
     }
 }
