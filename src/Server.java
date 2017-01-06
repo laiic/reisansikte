@@ -27,7 +27,7 @@ public class Server implements Runnable {
     public void run() {
 
         try {
-            ServerSocket serverSocket = new ServerSocket(5062);
+            ServerSocket serverSocket = new ServerSocket(5060);
 
 
             while (true){
