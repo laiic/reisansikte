@@ -55,6 +55,7 @@ public class Peer implements PeerConnection{
                     break;
                 case SEND_OK:
                     queue.put("OK " + RemoteInfo.mySipPort);
+                    System.out.println("Skickar Ok samt" + RemoteInfo.mySipPort);
                     break;
                 case SEND_KEEPALIVE:
                     queue.put("KEEPALIVE");

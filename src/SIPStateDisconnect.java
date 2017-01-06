@@ -8,7 +8,7 @@ public class SIPStateDisconnect extends SIPState {
     @Override
     public SIPState receiveOK() {
 
-
+        System.out.println("Ok received");
         return new SIPStateWaiting(peerConnection);
     }
 
