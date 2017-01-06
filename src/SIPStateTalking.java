@@ -47,6 +47,11 @@ public class SIPStateTalking extends SIPState {
         RemoteInfo.audioStreamUDP.stopStreaming();
         RemoteInfo.audioStreamUDP.close();
         running = false;
+        try {
+            Thread.currentThread().sleep(200); // väntar lite på att skicka OK
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         peerConnection.sendMsg(SIPEvent.SEND_OK);
         return new SIPStateWaiting(peerConnection);
     }
