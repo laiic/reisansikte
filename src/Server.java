@@ -82,6 +82,12 @@ public class Server implements Runnable {
 
                                 }
 
+                                if (args[0].equals("OK") && args.length == 2){
+
+                                    RemoteInfo.port = Integer.parseInt(args[1]);
+                                    command = "OK";
+
+                                }
 
                                 switch (command){
 
