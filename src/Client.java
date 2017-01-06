@@ -42,18 +42,24 @@ public class Client implements Runnable {
 
             if ( args.length == 3 && args[0].equals("INVITE") ){
                 System.out.println("Started new connection");
+
                 new Thread(new Runnable() {
+                    PrintWriter out;
+                    BufferedReader in;
                     @Override
                     public void run() {
             Socket socket = null;
                         try {
+
                             RemoteInfo.addr = args[1];
                             socket = new Socket( args[1], Integer.parseInt(args[2]) );
-                            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                             out = new PrintWriter(socket.getOutputStream(), true);
                             socket.setSoTimeout(15000);
-                            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             out.println("INVITE " + myIpAddr +" " + RemoteInfo.mySipPort);
                             sipLogic.processNextEvent(SIPEvent.SEND_INVITE);
+
+
 
                             Thread t = new Thread(new Runnable() {
                                 @Override
@@ -135,12 +141,16 @@ public class Client implements Runnable {
                         }finally {
                             try {
                                 socket.close();
+                                in.close();
+                                out.close();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
 
                     }
+
+                     //   System.("Thread finished");
                 }).start();
 
             }else if (msg.equals("BYE")) {

@@ -7,6 +7,8 @@ import java.net.InetAddress;
 public interface SIPLogic {
 
      void processNextEvent(SIPEvent event   ) throws IOException;
+     boolean isInSession();
+     void setInSession(boolean inSession);
 
      void printState();
 }

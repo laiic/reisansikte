@@ -4,6 +4,16 @@ import java.net.InetAddress;
 public class SIPHandler implements SIPLogic{
 
     private SIPState currentState; // DATA BEHÖVS FÖR ATT KUNNA SKICKA I PARAMETRAR
+
+    public boolean isInSession() {
+        return inSession;
+    }
+
+    public void setInSession(boolean inSession) {
+        this.inSession = inSession;
+    }
+
+    private  boolean inSession=false;
     //HA EN VARIABEL SOM HÅLLER KOLL PÅ OM DET ÄR PERSON SOM VI PRATAR MED
 
     public SIPHandler(PeerConnection peerConnection) {
