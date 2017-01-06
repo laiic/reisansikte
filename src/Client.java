@@ -59,9 +59,10 @@ public class Client implements Runnable {
                                 @Override
                                 public void run() {
 
+                                    String msg;
                                     while (true){
 
-                                        String msg = null;
+                                         msg = null;
                                         try {
                                             msg = queue.take();
                                         } catch (InterruptedException e) {
@@ -159,11 +160,11 @@ public class Client implements Runnable {
             }
 
             else if(msg.equals("OK")) {
-//                try {
-//                    queue.put("OK");
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    queue.put("OK");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 try {
                     sipLogic.processNextEvent(SIPEvent.SEND_OK);
