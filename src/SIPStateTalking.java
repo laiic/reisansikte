@@ -7,7 +7,6 @@ public class SIPStateTalking extends SIPState {
     public SIPStateTalking(PeerConnection peerConnection) {
         super(peerConnection);
         try {
-
             System.out.println("Remote addr = " + RemoteInfo.addr + " Remote port = " + RemoteInfo.port);
             RemoteInfo.audioStreamUDP.connectTo(InetAddress.getByName(RemoteInfo.addr), RemoteInfo.port);
             RemoteInfo.audioStreamUDP.startStreaming();

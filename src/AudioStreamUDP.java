@@ -78,7 +78,7 @@ class Receiver implements Runnable{
     	
     	try {
     		initializeLine();
-    		
+    		System.out.println("Receiver started"); //DANNE OREJ
             int frameSizeInBytes = format.getFrameSize();
             int bufferLengthInFrames = line.getBufferSize() / AudioStreamUDP.BUFFER_VS_FRAMES_RATIO;
             int bufferLengthInBytes = bufferLengthInFrames * frameSizeInBytes;
@@ -232,6 +232,7 @@ class Sender implements Runnable {
     	if(senderThread != Thread.currentThread()) return;
     	
     	try {
+			System.out.println("Sender started"); //DANNE OREJ
     		initializeLine();
             
 	        int frameSizeInBytes = format.getFrameSize();
@@ -291,8 +292,7 @@ class Sender implements Runnable {
     private void cleanUp() {
 		try {
 			if(line != null) {
-				line.stop();
-				line.close();
+				line.stop();line.close();
 			}
 		} catch(Exception e) {}
     }

@@ -89,10 +89,10 @@ public class Server implements Runnable {
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK);
                                         break;
                                     case "TRYING":
-                                        //sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY);
                                         break;
                                     case "RINGING":
-                                        //sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING);
                                         break;
                                     case "OK":
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_OK);
@@ -117,6 +117,7 @@ public class Server implements Runnable {
                         catch(SocketTimeoutException e) {
                             System.err.println("Socket timeout: " + e.getMessage());
                             try {
+                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
                                 newSocket.close();
                             } catch (IOException e1) {
                                 e1.printStackTrace();
@@ -130,6 +131,12 @@ public class Server implements Runnable {
                                 newSocket.close();
                             } catch (IOException e1) {
                                 e1.printStackTrace();
+                            }
+                        }finally {
+                            try {
+                                newSocket.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
                         }
 

@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 
@@ -44,11 +45,12 @@ public class Client implements Runnable {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-
+            Socket socket = null;
                         try {
                             RemoteInfo.addr = args[1];
-                            Socket socket = new Socket( args[1], Integer.parseInt(args[2]) );
+                            socket = new Socket( args[1], Integer.parseInt(args[2]) );
                             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                            socket.setSoTimeout(15000);
                             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             out.println("INVITE " + myIpAddr +" " + RemoteInfo.mySipPort);
                             sipLogic.processNextEvent(SIPEvent.SEND_INVITE);
@@ -92,7 +94,7 @@ public class Client implements Runnable {
                                 switch (command){
 
                                     case "ACK":
-                                  //      sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK);
+                                      sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK);
                                         break;
                                     case "TRYING": // " 2345"
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY);
@@ -117,8 +119,24 @@ public class Client implements Runnable {
 
                         } catch (ConnectException er){
                             System.err.print("You are already in a session: " + er.getMessage());
+                        } catch (SocketTimeoutException te) {
+                                System.err.println("Socket timeout: " + te.getMessage());
+                                try {
+                                    sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
+                                    socket.close();
+                                } catch (IOException e1) {
+                                    e1.printStackTrace();
+                                }
+
+
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }finally {
+                            try {
+                                socket.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                     }
