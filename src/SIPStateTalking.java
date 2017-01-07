@@ -35,7 +35,9 @@ public class SIPStateTalking extends SIPState {
 
     @Override
     public SIPState sendBYE() {
+        System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();
+        System.out.println("closeportar");
         RemoteInfo.audioStreamUDP.close();
         running = false;
         peerConnection.sendMsg(SIPEvent.SEND_BYE);
@@ -44,7 +46,9 @@ public class SIPStateTalking extends SIPState {
 
     @Override
     public SIPState receiveBYE() {
+        System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();
+        System.out.println("closeportar");
         RemoteInfo.audioStreamUDP.close();
         running = false;
         try {

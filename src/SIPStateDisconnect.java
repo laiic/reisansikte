@@ -9,6 +9,7 @@ public class SIPStateDisconnect extends SIPState {
     public SIPState receiveOK() {
 
         System.out.println("Ok received");
+        System.out.println("returning to Wait from Disconnect");
         return new SIPStateWaiting(peerConnection);
     }
 

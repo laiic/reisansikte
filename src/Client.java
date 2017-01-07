@@ -59,8 +59,6 @@ public class Client implements Runnable {
                             out.println("INVITE " + myIpAddr +" " + RemoteInfo.mySipPort);
                             sipLogic.processNextEvent(SIPEvent.SEND_INVITE);
 
-
-
                             Thread t = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -170,7 +168,11 @@ public class Client implements Runnable {
             }
 
             else if(msg.equals("OK")) {
-
+//                try {
+//                    queue.put("OK");
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 
                 try {
                     sipLogic.processNextEvent(SIPEvent.SEND_OK);
