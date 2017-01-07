@@ -38,14 +38,11 @@ public class Server implements Runnable {
 
 
                 new Thread(new Runnable() {
-                    PrintWriter out;
-                    BufferedReader in;
-
                     @Override
                     public void run() {
                         try {
-                            out = new PrintWriter(newSocket.getOutputStream(), true);
-                            in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
+                            PrintWriter out = new PrintWriter(newSocket.getOutputStream(), true);
+                            BufferedReader in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
                             newSocket.setSoTimeout(15000);
                             Thread t = new Thread(new Runnable() {
 
@@ -136,14 +133,6 @@ public class Server implements Runnable {
                                 newSocket.close();
                             } catch (IOException e1) {
                                 e1.printStackTrace();
-                            }
-                        } finally {
-                            try {
-                                newSocket.close();
-                                in.close();
-                                out.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
                             }
                         }
 

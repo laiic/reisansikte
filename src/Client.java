@@ -49,11 +49,11 @@ public class Client implements Runnable {
 
                     @Override
                     public void run() {
-                        Socket socket = null;
+                        //Socket socket = null;
                         try {
 
                             RemoteInfo.addr = args[1];
-                            socket = new Socket(args[1], Integer.parseInt(args[2]));
+                            Socket socket = new Socket(args[1], Integer.parseInt(args[2]));
                             out = new PrintWriter(socket.getOutputStream(), true);
                             socket.setSoTimeout(15000);
                             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -128,8 +128,7 @@ public class Client implements Runnable {
                         } catch (SocketTimeoutException te) {
                             System.err.println("Socket timeout: " + te.getMessage());
                             try {
-                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
-                                socket.close();
+                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE); //USe this to Auto getback to Waiting.
                             } catch (IOException e1) {
                                 e1.printStackTrace();
                             }
@@ -159,11 +158,11 @@ public class Client implements Runnable {
                 }
 
             } else if (msg.equals("OK")) {
-//                try {
-//                    queue.put("OK");
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    queue.put("OK");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 try {
                     sipLogic.processNextEvent(SIPEvent.SEND_OK);
