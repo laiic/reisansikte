@@ -18,7 +18,7 @@ public class Client implements Runnable {
 
     private String myIpAddr;
 
-    public Client( BlockingQueue<String> queue, SIPLogic sipLogic,  String myIpAddr){
+    public Client(BlockingQueue<String> queue, SIPLogic sipLogic, String myIpAddr) {
 
         this.queue = queue;
         this.sipLogic = sipLogic;
@@ -38,25 +38,26 @@ public class Client implements Runnable {
             sipLogic.printState();
             msg = scanner.nextLine();
 
-            String [] args = msg.split(" ");
+            String[] args = msg.split(" ");
 
-            if ( args.length == 3 && args[0].equals("INVITE") ){
+            if (args.length == 3 && args[0].equals("INVITE")) {
                 System.out.println("Started new connection");
 
                 new Thread(new Runnable() {
                     PrintWriter out;
                     BufferedReader in;
+
                     @Override
                     public void run() {
-            Socket socket = null;
+                        Socket socket = null;
                         try {
 
                             RemoteInfo.addr = args[1];
-                            socket = new Socket( args[1], Integer.parseInt(args[2]) );
-                             out = new PrintWriter(socket.getOutputStream(), true);
+                            socket = new Socket(args[1], Integer.parseInt(args[2]));
+                            out = new PrintWriter(socket.getOutputStream(), true);
                             socket.setSoTimeout(15000);
-                             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                            out.println("INVITE " + myIpAddr +" " + RemoteInfo.mySipPort);
+                            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                            out.println("INVITE " + myIpAddr + " " + RemoteInfo.mySipPort);
                             sipLogic.processNextEvent(SIPEvent.SEND_INVITE);
 
                             Thread t = new Thread(new Runnable() {
@@ -64,9 +65,9 @@ public class Client implements Runnable {
                                 public void run() {
 
                                     String msg;
-                                    while (true){
+                                    while (true) {
 
-                                         msg = null;
+                                        msg = null;
                                         try {
                                             msg = queue.take();
                                         } catch (InterruptedException e) {
@@ -83,29 +84,29 @@ public class Client implements Runnable {
                             sipLogic.printState();
                             String command;
 
-                            while ((command =in.readLine()) != null){
+                            while ((command = in.readLine()) != null) {
                                 System.out.println(command);
-                                System.out.println("Vem skrev? "+ command);
+                                System.out.println("Vem skrev? " + command);
                                 sipLogic.printState();
-                                String []args = command.split(" ");
+                                String[] args = command.split(" ");
 
-                                if (args[0].equals("OK") && args.length == 2){
+                                if (args[0].equals("OK") && args.length == 2) {
 
                                     RemoteInfo.port = Integer.parseInt(args[1]);
                                     command = "OK";
 
                                 }
 
-                                switch (command){
+                                switch (command) {
 
                                     case "ACK":
-                                      sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK);
                                         break;
                                     case "TRYING": // " 2345"
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY);
                                         break;
                                     case "RINGING":
-                                       sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING);
                                         break;
                                     case "OK":
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_OK);
@@ -122,23 +123,23 @@ public class Client implements Runnable {
 
                             t.interrupt();
 
-                        } catch (ConnectException er){
+                        } catch (ConnectException er) {
                             System.err.print("You are already in a session: " + er.getMessage());
                         } catch (SocketTimeoutException te) {
-                                System.err.println("Socket timeout: " + te.getMessage());
-                                try {
-                                    sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
-                                    socket.close();
-                                } catch (IOException e1) {
-                                    e1.printStackTrace();
-                                }
+                            System.err.println("Socket timeout: " + te.getMessage());
+                            try {
+                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
+                                socket.close();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
 
 
                         } catch (IOException e) {
                             e.printStackTrace();
-                        }finally {
+                        } finally {
                             try {
-                                socket.close();
+                                // socket.close();
                                 in.close();
                                 out.close();
                             } catch (IOException e) {
@@ -148,10 +149,10 @@ public class Client implements Runnable {
 
                     }
 
-                     //   System.("Thread finished");
+                    //   System.("Thread finished");
                 }).start();
 
-            }else if (msg.equals("BYE")) {
+            } else if (msg.equals("BYE")) {
 
                 try {
                     queue.put("BYE");
@@ -165,9 +166,7 @@ public class Client implements Runnable {
                     e.printStackTrace();
                 }
 
-            }
-
-            else if(msg.equals("OK")) {
+            } else if (msg.equals("OK")) {
 //                try {
 //                    queue.put("OK");
 //                } catch (InterruptedException e) {

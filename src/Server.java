@@ -17,7 +17,7 @@ public class Server implements Runnable {
     private SIPLogic sipLogic;
     private Scanner scanner = new Scanner(System.in);
 
-    public Server( BlockingQueue<String> queue, SIPLogic sipLogic){
+    public Server(BlockingQueue<String> queue, SIPLogic sipLogic) {
 
         this.queue = queue;
         this.sipLogic = sipLogic;
@@ -30,7 +30,7 @@ public class Server implements Runnable {
             ServerSocket serverSocket = new ServerSocket(5060);
 
 
-            while (true){
+            while (true) {
 
                 System.out.println("Tillbaka här");
                 sipLogic.printState();
@@ -40,18 +40,19 @@ public class Server implements Runnable {
                 new Thread(new Runnable() {
                     PrintWriter out;
                     BufferedReader in;
+
                     @Override
                     public void run() {
                         try {
-                             out = new PrintWriter(newSocket.getOutputStream(), true);
-                             in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
+                            out = new PrintWriter(newSocket.getOutputStream(), true);
+                            in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
                             newSocket.setSoTimeout(15000);
                             Thread t = new Thread(new Runnable() {
 
                                 @Override
                                 public void run() {
 
-                                    while (true){
+                                    while (true) {
 
                                         String msg = null;
                                         try {
@@ -71,11 +72,11 @@ public class Server implements Runnable {
 
                             String command;
 
-                            while ((command =in.readLine()) != null){
+                            while ((command = in.readLine()) != null) {
                                 System.out.println(command);
-                                String []args = command.split(" ");
+                                String[] args = command.split(" ");
 
-                                if (  args.length == 3 && args[0].equals("INVITE")){
+                                if (args.length == 3 && args[0].equals("INVITE")) {
 
                                     RemoteInfo.port = Integer.parseInt(args[2]);
                                     RemoteInfo.addr = args[1];
@@ -84,14 +85,14 @@ public class Server implements Runnable {
 
                                 }
 
-                                if (args[0].equals("OK") && args.length == 2){
+                                if (args[0].equals("OK") && args.length == 2) {
 
                                     RemoteInfo.port = Integer.parseInt(args[1]);
                                     command = "OK";
 
                                 }
 
-                                switch (command){
+                                switch (command) {
 
                                     case "ACK":
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK);
@@ -112,7 +113,7 @@ public class Server implements Runnable {
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE);
                                         break;
 
-                                        //default : fel
+                                    //default : fel
 
                                 }
 
@@ -120,9 +121,7 @@ public class Server implements Runnable {
 
                             t.interrupt();
 
-                        }
-
-                        catch(SocketTimeoutException e) {
+                        } catch (SocketTimeoutException e) {
                             System.err.println("Socket timeout: " + e.getMessage());
                             try {
                                 sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
@@ -131,16 +130,14 @@ public class Server implements Runnable {
                                 e1.printStackTrace();
                             }
 
-                        }
-
-                        catch (IOException e) {
+                        } catch (IOException e) {
                             e.printStackTrace();
                             try {
                                 newSocket.close();
                             } catch (IOException e1) {
                                 e1.printStackTrace();
                             }
-                        }finally {
+                        } finally {
                             try {
                                 newSocket.close();
                                 in.close();
