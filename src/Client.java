@@ -137,14 +137,6 @@ public class Client implements Runnable {
 
                         } catch (IOException e) {
                             e.printStackTrace();
-                        } finally {
-                            try {
-                                // socket.close();
-                                in.close();
-                                out.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                         }
 
                     }
