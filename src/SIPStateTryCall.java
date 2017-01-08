@@ -25,8 +25,9 @@ public class SIPStateTryCall extends SIPState {
     }
 
     @Override
-    public void printState() {
-        System.out.println("Vi är i tryCall state");
+    public String printState() {
+        System.out.println("tryCall state");
+        return "";
     }
 
     @Override

@@ -47,8 +47,8 @@ public class SIPHandler implements SIPLogic{
         }
     }
 
-    public void printState() {
-        currentState.printState();
+    public String printState() {
+        return currentState.printState();
     }
 }
 

@@ -34,8 +34,9 @@ public class SIPStateWaiting extends SIPState {
     }
 
     @Override
-    public void printState() {
-        System.out.println("We are in waiting!");
+    public String printState() {
+        System.out.println("WAITING state");
+        return "";
     }
 
     @Override

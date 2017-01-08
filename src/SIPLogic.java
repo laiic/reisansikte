@@ -10,5 +10,5 @@ public interface SIPLogic {
      boolean isInSession();
      void setInSession(boolean inSession);
 
-     void printState();
+     String printState();
 }

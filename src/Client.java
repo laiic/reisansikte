@@ -44,9 +44,6 @@ public class Client implements Runnable {
                 System.out.println("Started new connection");
 
                 new Thread(new Runnable() {
-                    PrintWriter out;
-                    BufferedReader in;
-
                     @Override
                     public void run() {
                         //Socket socket = null;
@@ -54,9 +51,9 @@ public class Client implements Runnable {
 
                             RemoteInfo.addr = args[1];
                             Socket socket = new Socket(args[1], Integer.parseInt(args[2]));
-                            out = new PrintWriter(socket.getOutputStream(), true);
+                            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                             socket.setSoTimeout(15000);
-                            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             out.println("INVITE " + myIpAddr + " " + RemoteInfo.mySipPort);
                             sipLogic.processNextEvent(SIPEvent.SEND_INVITE);
 
@@ -126,6 +123,7 @@ public class Client implements Runnable {
                         } catch (ConnectException er) {
                             System.err.print("You are already in a session: " + er.getMessage());
                         } catch (SocketTimeoutException te) {
+
                             System.err.println("Socket timeout: " + te.getMessage());
                             try {
                                 sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE); //USe this to Auto getback to Waiting.
@@ -158,11 +156,6 @@ public class Client implements Runnable {
                 }
 
             } else if (msg.equals("OK")) {
-                try {
-                    queue.put("OK");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
                 try {
                     sipLogic.processNextEvent(SIPEvent.SEND_OK);

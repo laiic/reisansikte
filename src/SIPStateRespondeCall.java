@@ -16,8 +16,9 @@ public class SIPStateRespondeCall extends SIPState {
     }
 
     @Override
-    public void printState() {
-        System.out.println("We are in the RespondeState");
+    public String printState() {
+        System.out.println("RespondeState");
+        return "";
     }
 
     @Override

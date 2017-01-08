@@ -87,6 +87,10 @@ public class Server implements Runnable {
                                     RemoteInfo.port = Integer.parseInt(args[1]);
                                     command = "OK";
 
+                                    if(sipLogic.printState().equals("DISCONNECT")){
+                                        newSocket.close();
+                                        t.interrupt();
+                                    }
                                 }
 
                                 switch (command) {
@@ -101,6 +105,7 @@ public class Server implements Runnable {
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING);
                                         break;
                                     case "OK":
+
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_OK);
                                         break;
                                     case "BYE":

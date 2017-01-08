@@ -55,7 +55,9 @@ public abstract class SIPState {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public abstract void printState();
+    public String printState() {
+        return null;
+    }
 
     public abstract SIPState sendBUSY();
 

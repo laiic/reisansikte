@@ -7,15 +7,21 @@ public class SIPStateDisconnect extends SIPState {
 
     @Override
     public SIPState receiveOK() {
-
         System.out.println("Ok received");
         System.out.println("returning to Wait from Disconnect");
         return new SIPStateWaiting(peerConnection);
     }
 
+
     @Override
-    public void printState() {
-        System.out.println("we are in the disconnectState");
+    public String printState() {
+        String str = new String("DISCONNECT");
+        System.out.println("DISCONNECT state");
+        return str;
+    }
+
+    public String getState(){
+        return "DISCONNECT";
     }
 
     @Override
