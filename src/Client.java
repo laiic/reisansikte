@@ -56,7 +56,18 @@ public class Client implements Runnable {
                             socket.setSoTimeout(15000);
                             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             out.println("INVITE " + myIpAddr + " " + RemoteInfo.mySipPort);
+
+                            if(!sipLogic.isInSession()){
+                                sipLogic.setInSession(true);
+                            }
+                            else{
+                                out.println("i am busy ffs");
+                            }
+
+
                             sipLogic.processNextEvent(SIPEvent.SEND_INVITE);
+
+
 
                             Thread t = new Thread(new Runnable() {
                                 @Override
