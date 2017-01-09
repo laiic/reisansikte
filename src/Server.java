@@ -76,11 +76,6 @@ public class Server implements Runnable {
 
                                 if (args.length == 3 && args[0].equals("INVITE")) {
 
-                                    RemoteInfo.port = Integer.parseInt(args[2]);
-                                    RemoteInfo.addr = args[1];
-
-                                    command = "INVITE";
-
                                     if(!sipLogic.isInSession()){
                                         sipLogic.setInSession(true);
                                     }
@@ -89,6 +84,13 @@ public class Server implements Runnable {
                                         newSocket.close();
                                         t.interrupt();
                                     }
+
+                                    RemoteInfo.port = Integer.parseInt(args[2]);
+                                    RemoteInfo.addr = args[1];
+
+                                    command = "INVITE";
+
+
 
                                     //OM VI FÅR EN INVITE OCH VI ÄR INSESSION,, SKICKA EN BYE.
 
