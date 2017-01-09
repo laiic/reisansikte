@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
@@ -87,7 +88,7 @@ public class Server implements Runnable {
                                     RemoteInfo.port = Integer.parseInt(args[1]);
                                     command = "OK";
 
-                                    if(sipLogic.printState().equals("DISCONNECT")){
+                                    if (sipLogic.printState().equals("DISCONNECT")) {
                                         newSocket.close();
                                         t.interrupt();
                                     }
@@ -132,6 +133,8 @@ public class Server implements Runnable {
                                 e1.printStackTrace();
                             }
 
+                        } catch (SocketException se) {
+                            System.err.println("Socket closed: " + se.getMessage());
                         } catch (IOException e) {
                             e.printStackTrace();
                             try {
