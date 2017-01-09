@@ -81,6 +81,15 @@ public class Server implements Runnable {
 
                                     command = "INVITE";
 
+                                    if(!sipLogic.isInSession()){
+                                        sipLogic.setInSession(true);
+                                    }
+                                    else{
+                                        out.println("i am busy ffs");
+                                    }
+
+                                    //OM VI FÅR EN INVITE OCH VI ÄR INSESSION,, SKICKA EN BYE.
+
                                 }
 
                                 if (args[0].equals("OK") && args.length == 2) {
@@ -110,6 +119,7 @@ public class Server implements Runnable {
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_OK);
                                         break;
                                     case "BYE":
+                                        sipLogic.setInSession(false);
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
                                         break;
                                     case "INVITE":
