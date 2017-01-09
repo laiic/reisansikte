@@ -80,17 +80,18 @@ public class Server implements Runnable {
                                         sipLogic.setInSession(true);
                                     }
                                     else{
-                                        out.println("i am busy ffs, disconnecting from you");
-                                        newSocket.close();
-                                        t.interrupt();
+
+                                            out.println("i am busy ffs, disconnecting from you");
+                                            newSocket.close();
+                                            t.interrupt();
+                                            continue;
+
                                     }
 
                                     RemoteInfo.port = Integer.parseInt(args[2]);
                                     RemoteInfo.addr = args[1];
 
                                     command = "INVITE";
-
-
 
                                     //OM VI FÅR EN INVITE OCH VI ÄR INSESSION,, SKICKA EN BYE.
 
