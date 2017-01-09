@@ -35,10 +35,7 @@ public class Server implements Runnable {
 
                 sipLogic.printState();
                 Socket newSocket = serverSocket.accept();
-                if(sipLogic.isInSession()){
-                    newSocket.close();
-                    continue;
-                }
+
 
 
                 new Thread(new Runnable() {
@@ -88,7 +85,9 @@ public class Server implements Runnable {
                                         sipLogic.setInSession(true);
                                     }
                                     else{
-                                        out.println("i am busy ffs");
+                                        out.println("i am busy ffs, disconnecting from you");
+                                        newSocket.close();
+                                        t.interrupt();
                                     }
 
                                     //OM VI FÅR EN INVITE OCH VI ÄR INSESSION,, SKICKA EN BYE.

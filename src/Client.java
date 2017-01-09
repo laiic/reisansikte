@@ -57,15 +57,6 @@ public class Client implements Runnable {
                             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             out.println("INVITE " + myIpAddr + " " + RemoteInfo.mySipPort);
 
-                            if(!sipLogic.isInSession()){
-                                System.out.println("i Vlient och fått en INVITE och är tydligen inte inSessopn");
-                                sipLogic.setInSession(true);
-                            }
-                            else{
-                                out.println("i am busy ffs");
-                            }
-
-
                             sipLogic.processNextEvent(SIPEvent.SEND_INVITE);
 
 
@@ -140,11 +131,6 @@ public class Client implements Runnable {
 
                         } catch (ConnectException er) {
                             System.err.print("You are already in a session: " + er.getMessage());
-                            try {
-                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE); //USe this to Auto getback to Waiting.
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                         } catch (SocketTimeoutException te) {
 
                             System.err.println("Socket timeout: " + te.getMessage());
@@ -156,19 +142,8 @@ public class Client implements Runnable {
 
                         } catch (SocketException se){
                             System.err.println("Socket closed: " + se.getMessage());
-
-                            try {
-                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE); //USe this to Auto getback to Waiting.
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                         } catch (IOException e) {
                             e.printStackTrace();
-                            try {
-                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE); //USe this to Auto getback to Waiting.
-                            } catch (IOException e1) {
-                                e1.printStackTrace();
-                            }
                         }
 
                     }
