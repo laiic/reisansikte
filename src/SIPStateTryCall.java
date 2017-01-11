@@ -7,37 +7,45 @@ public class SIPStateTryCall extends SIPState {
     }
 
 
-    public SIPState receiveTRY() {
+    public SIPState receiveTRY(Socket socket) {
             System.out.println("Try received");
 
         return new SIPStateTryCall(this.peerConnection);
     }
 
-    public SIPState receiveRINGING() {
+    @Override
+    public SIPState sendINVITE(Socket socket) {
+        System.out.println("WHY WOULD YOU WANNA SEND INVITE? ");
+        return new SIPStateTryCall(this.peerConnection);
+    }
+
+    public SIPState receiveRINGING(Socket socket) {
         System.out.println("RINGING received");
         return new SIPStateTryCall(this.peerConnection);
     }
 
-    public SIPState receiveOK() {
+    public SIPState receiveOK(Socket socket, int port) {
         System.out.println("OK received Srnding ACK");
         peerConnection.sendMsg(SIPEvent.SEND_ACK);
+        RemoteInfo.addr = socket.getInetAddress().getHostAddress();
+        RemoteInfo.port = port;
         return new SIPStateTalking(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveINVITE() {
+    public SIPState receiveINVITE(Socket socket, int port) {
         System.out.println("CAN'T RECEIVE INVITE");
         return new SIPStateTryCall(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveACK() {
+    public SIPState receiveACK(Socket socket) {
         System.out.println("DON'T WANT ACK!");
         return new SIPStateTryCall(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveBYE() {
+    public SIPState receiveBYE(Socket socket) {
         System.out.println("DON'T WANT BYE");
         return new SIPStateTryCall(this.peerConnection);
     }

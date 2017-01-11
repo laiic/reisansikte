@@ -19,6 +19,15 @@ public class Peer implements PeerConnection{
     private String myIpAddr;
     protected  SIPLogic sipLogic;
     private boolean inSession = false;
+
+    public InetAddress getCallee() {
+        return callee;
+    }
+
+    public void setCallee(InetAddress callee) {
+        this.callee = callee;
+    }
+
     protected InetAddress callee;
 
     public boolean isInSession() {
@@ -37,8 +46,6 @@ public class Peer implements PeerConnection{
         this.queue = new LinkedBlockingQueue<>();
         new Thread(new Server(queue, sipLogic)).start();
         new Thread(new Client(queue, sipLogic, myIpAddr)).start();
-
-//
 //        new Thread(new Server(queue)).start();
 //        new Thread(new Client(queue, myIpAddr)).start();
     }

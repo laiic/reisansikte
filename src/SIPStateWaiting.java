@@ -14,7 +14,7 @@ public class SIPStateWaiting extends SIPState {
     }
 
     @Override
-    public SIPState sendINVITE() {
+    public SIPState sendINVITE(Socket socket) {
         peerConnection.setInSession(true);
         System.out.println("INSESSION TRUE ");
         return new SIPStateTryCall(this.peerConnection);
@@ -22,12 +22,15 @@ public class SIPStateWaiting extends SIPState {
 
     @Override
     public SIPState receiveINVITE(/* LÄGG TILL PARAMETE
-    RAR HÄR, HANDLER SER TILL ATT SKICKA DE DATA SOM BEHÖVS */){
+    RAR HÄR, HANDLER SER TILL ATT SKICKA DE DATA SOM BEHÖVS */Socket socket, int port){
            // FÖR ATT *HÄR* KUNNA SKICKA TRO
         peerConnection.sendMsg(SIPEvent.SEND_TRY);   //  TRO     OK +
         peerConnection.sendMsg(SIPEvent.SEND_RINGING);
         System.out.println("To respond type OK a, timeout in 15 sek: ");
         peerConnection.setInSession(true);
+
+        RemoteInfo.addr = socket.getInetAddress().getHostAddress();
+        RemoteInfo.port = port;
 
         System.out.println("INSESSION TRUE ");
         return new SIPStateRespondeCall(this.peerConnection);

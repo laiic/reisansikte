@@ -8,7 +8,7 @@ public class SIPStateDisconnect extends SIPState {
     }
 
     @Override
-    public SIPState receiveOK() {
+    public SIPState receiveOK(Socket socket, int port) {
         System.out.println("Ok received");
         System.out.println("returning to Wait from Disconnect and closing current port and SetinS");
         peerConnection.setInSession(false);
@@ -17,34 +17,41 @@ public class SIPStateDisconnect extends SIPState {
     }
 
     @Override
-    public SIPState receiveRINGING() {
+    public SIPState receiveRINGING(Socket socket) {
         System.out.println("DON'T WANT RINGING");
         return new SIPStateDisconnect(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveTRY() {
+    public SIPState receiveTRY(Socket socket) {
         System.out.println("DON'T WANT TRY");
         return new SIPStateDisconnect(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveINVITE() {
+    public SIPState receiveINVITE(Socket socket, int port) {
         System.out.println("DON'T WANT INVITE");
         return new SIPStateDisconnect(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveACK() {
+    public SIPState receiveACK(Socket socket) {
         System.out.println("DON'T WANT ACK");
         return new SIPStateDisconnect(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveBYE() {
+    public SIPState receiveBYE(Socket socket) {
         System.out.println("DON'T WANT BYE");
         return new SIPStateDisconnect(this.peerConnection);
     }
+
+    @Override
+    public SIPState sendINVITE(Socket socket) {
+        System.out.println("WHY WOULD YOU WANNA SEND INVITE? ");
+        return new SIPStateDisconnect(this.peerConnection);
+    }
+
 
     @Override
     public String printState() {

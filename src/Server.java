@@ -58,7 +58,6 @@ public class Server implements Runnable {
                             BufferedReader in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
                             newSocket.setSoTimeout(15000);
                            // Testar om Busy Genom att skicka något direkt till sig själ
-                            sipLogic.processNextEvent(SIPEvent.TEST_BUSY, newSocket);
 
                             Thread t = new Thread(new Runnable() {
 
@@ -89,19 +88,7 @@ public class Server implements Runnable {
                                 String[] args = command.split(" ");
 
                                 if (args.length == 3 && args[0].equals("INVITE")) {
-
-//                                    if(!sipLogic.isInSession()){
-//                                        sipLogic.setInSession(true, newSocket);
-//                                    }  else{
-//                                        out.println("i am busy, disconnecting from you");
-//                                        sipLogic.processNextEvent(SIPEvent.SEND_BUSY,newSocket);
-//                                        newSocket.close();
-//                                        t.interrupt();
-//                                        continue;
-//                                    }
-                                    RemoteInfo.port = Integer.parseInt(args[2]);
-                                    RemoteInfo.addr = args[1];
-
+                                   // RemoteInfo.addr = args[1];
                                     command = "INVITE";
 
                                     //OM VI FÅR EN INVITE OCH VI ÄR INSESSION,, SKICKA EN BYE.
@@ -109,39 +96,35 @@ public class Server implements Runnable {
                                 }
 
                                 if (args[0].equals("OK") && args.length == 2) {
-
-                                    RemoteInfo.port = Integer.parseInt(args[1]);
                                     command = "OK";
-
-
                                 }
 
                                 switch (command) {
 
                                     case "ACK":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK, newSocket);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK, newSocket, Integer.parseInt(args[1]));
                                         break;
                                     case "TRYING":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY, newSocket);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY, newSocket, Integer.parseInt(args[1]));
                                         break;
                                     case "RINGING":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING, newSocket);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING, newSocket, Integer.parseInt(args[1]));
                                         break;
                                     case "OK":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_OK, newSocket);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_OK, newSocket, Integer.parseInt(args[1]));
                                         break;
                                     case "BYE":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE, newSocket);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE, newSocket, Integer.parseInt(args[1]));
                                         break;
                                     case "INVITE":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE, newSocket);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE, newSocket, Integer.parseInt(args[1]));
                                         break;
                                     case "BUSY":
                                         System.out.println("The other guy is busy What to do? well, lets close the socket");
                                         newSocket.close();
                                         break;
                                     default:
-                                        System.out.println("What the fuck are you talking about?");
+                                        System.out.println("What the f are you talking about?");
                                     //default : fel
 
                                 }
@@ -153,7 +136,7 @@ public class Server implements Runnable {
                         } catch (SocketTimeoutException e) {
                             System.err.println("Socket timeout: " + e.getMessage());
                             try {
-                                sipLogic.processNextEvent(SIPEvent.SOCK_TIMEOUT, null);
+                                sipLogic.processNextEvent(SIPEvent.SOCK_TIMEOUT, null, 0);
                                 newSocket.close();
                             } catch (IOException e1) {
                                 e1.printStackTrace();

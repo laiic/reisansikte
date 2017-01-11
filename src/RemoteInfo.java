@@ -17,8 +17,6 @@ public class RemoteInfo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
 }

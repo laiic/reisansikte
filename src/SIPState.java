@@ -1,3 +1,5 @@
+import java.net.Socket;
+
 public abstract class SIPState {
 
     protected PeerConnection peerConnection;
@@ -8,50 +10,50 @@ public abstract class SIPState {
 
     }
 
-    public SIPState sendINVITE() {
+    public SIPState sendINVITE(Socket socket) {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public SIPState sendACK() {
+    public SIPState sendACK(Socket socket) {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public SIPState sendTRY() {
+    public SIPState sendTRY(Socket socket) {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public SIPState sendRINGING() {
+    public SIPState sendRINGING(Socket socket) {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public SIPState sendBYE() {
+    public SIPState sendBYE(Socket socket) {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public SIPState sendOK() {
+    public SIPState sendOK(Socket socket) {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public SIPState receiveINVITE() {return new SIPStateWaiting(peerConnection);} // RETURN WAITING
+    public SIPState receiveINVITE(Socket socket, int port) {return new SIPStateWaiting(peerConnection);} // RETURN WAITING
 
-    public SIPState receiveACK() {
+    public SIPState receiveACK(Socket socket) {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public SIPState receiveTRY() {return new SIPStateWaiting(peerConnection);}
+    public SIPState receiveTRY(Socket socket) {return new SIPStateWaiting(peerConnection);}
 
-    public SIPState receiveRINGING() {
+    public SIPState receiveRINGING(Socket socket) {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public SIPState receiveBYE() {
+    public SIPState receiveBYE(Socket socket) {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public SIPState receiveOK() {
+    public SIPState receiveOK(Socket socket, int port) {
         return new SIPStateWaiting(peerConnection);
     }
-    public SIPState socketTimeout() {return new SIPStateWaiting(peerConnection);}
+    public SIPState socketTimeout(Socket socket) {return new SIPStateWaiting(peerConnection);}
     public String printState() {
         return null;
     }

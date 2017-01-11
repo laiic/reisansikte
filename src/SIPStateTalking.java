@@ -35,38 +35,45 @@ public class SIPStateTalking extends SIPState {
     }
 
     @Override
-    public SIPState receiveINVITE() {
+    public SIPState receiveINVITE(Socket socket, int port) {
         System.out.println("CAN'T RECEIVE INVITE");
         return new SIPStateTalking(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveACK() {
+    public SIPState receiveACK(Socket socket) {
         System.out.println("DON'T WANT ACK!");
         return new SIPStateTalking(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveOK() {
+    public SIPState receiveOK(Socket socket, int port) {
         System.out.println("DON'T WANT ok!");
         return new SIPStateTalking(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveRINGING() {
+    public SIPState receiveRINGING(Socket socket) {
         System.out.println("DON'T WANT RINGING");
         return new SIPStateTalking(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveTRY() {
+    public SIPState receiveTRY(Socket socket) {
         System.out.println("DON'T WANT TRY");
         return new SIPStateTalking(this.peerConnection);
     }
 
+    @Override
+    public SIPState sendINVITE(Socket socket) {
+        System.out.println("WHY WOULD YOU WANNA SEND INVITE? ");
+        return new SIPStateTalking(this.peerConnection);
+    }
+
+
 
     @Override
-    public SIPState sendBYE() {
+    public SIPState sendBYE(Socket socket) {
         System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();
         System.out.println("closeportar");
@@ -77,7 +84,7 @@ public class SIPStateTalking extends SIPState {
     }
 
     @Override
-    public SIPState receiveBYE() {
+    public SIPState receiveBYE(Socket socket) {
         System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();
         System.out.println("closeportar");

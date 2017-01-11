@@ -1,14 +1,22 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class SIPHandler implements SIPLogic {
 
-    private SIPState currentState; // DATA BEHÖVS FÖR ATT KUNNA SKICKA I PARAMETRAR
+    private SIPState currentState; // DATA BEHÖVS FÖR ATT KUNNA SKICKA I PARAMETRARxw
 
     private PeerConnection peerConnection;
+
+    private boolean first = true;
+
+    public boolean isFirst() {
+        return first;
+    }
+
+    @Override
+    public void setFirst(boolean first) {
+        this.first = first;
+    }
 
     //HA EN VARIABEL SOM HÅLLER KOLL PÅ OM DET ÄR PERSON SOM VI PRATAR MED
 
@@ -18,7 +26,7 @@ public class SIPHandler implements SIPLogic {
     }
 
     @Override
-    public void processNextEvent(SIPEvent event, Socket socket) throws IOException {
+    public void processNextEvent(SIPEvent event, Socket socket, int port) throws IOException {
         /**
          *  DEn första Inviten Som skickas av en klient ska leda till att det sparas En currentTalker
          *  CURRENT
@@ -26,62 +34,48 @@ public class SIPHandler implements SIPLogic {
          * */
 //CURRENT
 //        if (socket.equals(currentSocket)) {
-        if (socket.getInetAddress().equals(RemoteInfo.addr)) {
+
             switch (event) {
                 case SEND_INVITE:
-                    currentState = currentState.sendINVITE();
+                    currentState = currentState.sendINVITE(socket);
                     break;  // döp inspirereat av PDU:erna INVITE, TRO, ACK
                 case SEND_TRY:
-                    currentState = currentState.sendTRY();
+                    currentState = currentState.sendTRY(socket);
                     break;
                 case SEND_RINGING:
-                    currentState = currentState.sendRINGING();
+                    currentState = currentState.sendRINGING(socket);
                     break;
                 case SEND_ACK:
-                    currentState = currentState.sendACK();
+                    currentState = currentState.sendACK(socket);
                     break;
                 case SEND_BYE:
-                    currentState = currentState.sendBYE();
+                    currentState = currentState.sendBYE(socket);
                     break;
                 case SEND_OK:
-                    currentState = currentState.sendOK();
+                    currentState = currentState.sendOK(socket);
                     break;
                 case RECEIVE_INVITE:
-                    currentState = currentState.receiveINVITE();
+                    currentState = currentState.receiveINVITE(socket,port);
                     break;
                 case RECEIVE_TRY:
-                    currentState = currentState.receiveTRY();
+                    currentState = currentState.receiveTRY(socket);
                     break;
                 case RECEIVE_RINGING:
-                    currentState = currentState.receiveRINGING();
+                    currentState = currentState.receiveRINGING(socket);
                     break;
                 case RECEIVE_ACK:
-                    currentState = currentState.receiveACK();
+                    currentState = currentState.receiveACK(socket);
                     break;
                 case RECEIVE_BYE:
-                    currentState = currentState.receiveBYE();
+                    currentState = currentState.receiveBYE(socket);
                     break;
                 case RECEIVE_OK:
-                    currentState = currentState.receiveOK();
+                    currentState = currentState.receiveOK(socket,port);
                     break;
                 case SOCK_TIMEOUT:
-                    currentState = currentState.socketTimeout();
+                    currentState = currentState.socketTimeout(socket);
                     break;
-                case TEST_BUSY:
-                    if(socket.getInetAddress().equals(RemoteInfo.addr)){
-                        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                        System.out.println("Got Something from another dude so i am Sending Close and closing that socket");
-                        out.println("BUSY");
-                        socket.close();
-                    }
             }
-        }
-        else {;
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            System.out.println("Got Something from another dude so i am Sending Close and closing that socket");
-            out.println("BUSY");
-            socket.close();
-        }
     }
 
     public String printState() {

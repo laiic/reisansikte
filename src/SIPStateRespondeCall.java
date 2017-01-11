@@ -8,37 +8,42 @@ public class SIPStateRespondeCall extends SIPState {
 
 
     @Override
-    public SIPState receiveOK() {
+    public SIPState receiveOK(Socket socket, int port) {
         System.out.println("DON'T WANT OK");
         return new SIPStateRespondeCall(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveBYE() {
+    public SIPState receiveBYE(Socket socket) {
         System.out.println("DON'T WANT BYE");
         return new SIPStateRespondeCall(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveRINGING() {
+    public SIPState receiveRINGING(Socket socket) {
         System.out.println("DON'T WANT RINGING");
         return new SIPStateRespondeCall(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveTRY() {
+    public SIPState receiveTRY(Socket socket) {
         System.out.println("DON'T WANT TRY");
+        return new SIPStateRespondeCall(this.peerConnection);
+    }
+    @Override
+    public SIPState sendINVITE(Socket socket) {
+        System.out.println("WHY WOULD YOU WANNA SEND INVITE? ");
         return new SIPStateRespondeCall(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveINVITE() {
+    public SIPState receiveINVITE(Socket socket, int port) {
         System.out.println("DON'T WANT INVITE");
         return new SIPStateRespondeCall(this.peerConnection);
     }
 
     @Override
-    public SIPState receiveACK() {
+    public SIPState receiveACK(Socket socket) {
         return new SIPStateTalking(this.peerConnection);
     }
 
@@ -49,7 +54,7 @@ public class SIPStateRespondeCall extends SIPState {
     }
 
     @Override
-    public SIPState sendOK() {
+    public SIPState sendOK(Socket socket) {
         peerConnection.sendMsg(SIPEvent.SEND_OK);
         return new SIPStateRespondeCall(this.peerConnection);
     }
