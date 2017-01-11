@@ -60,6 +60,11 @@ public class Peer implements PeerConnection{
                 case SEND_KEEPALIVE:
                     queue.put("KEEPALIVE");
                     break;
+                case SEND_BUSY:
+                    queue.put("BUSY");
+                    break;
+                default:
+                    System.out.println("You ccant send that crap");
         }
 
         } catch (InterruptedException e) {

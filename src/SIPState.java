@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.net.InetAddress;
+import java.net.Socket;
 
 public abstract class SIPState {
 
@@ -54,12 +53,12 @@ public abstract class SIPState {
     public SIPState receiveOK() {
         return new SIPStateWaiting(peerConnection);
     }
-
+    public SIPState socketTimeout() {return new SIPStateWaiting(peerConnection);}
     public String printState() {
         return null;
     }
-
-    public abstract SIPState sendBUSY();
+    public abstract void sendBUSY(Socket socket);
+    public SIPState receiveBUSY(){return new SIPStateWaiting(peerConnection);}
 
     //Samtliga metoder som hör till tillståndsövergångar
 

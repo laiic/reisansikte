@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.net.InetAddress;
+import java.net.Socket;
 
 public class SIPStateTryCall extends SIPState {
 
@@ -18,7 +17,7 @@ public class SIPStateTryCall extends SIPState {
         return new SIPStateTryCall(this.peerConnection);
     }
 
-    public SIPState receiveOK() {
+    public SIPState receiveOK(Socket socket) {
         System.out.println("OK received Srnding ACK");
         peerConnection.sendMsg(SIPEvent.SEND_ACK);
         return new SIPStateTalking(this.peerConnection);
@@ -31,9 +30,8 @@ public class SIPStateTryCall extends SIPState {
     }
 
     @Override
-    public SIPState sendBUSY() {
+    public void sendBUSY(Socket socket) {
         peerConnection.sendMsg(SIPEvent.SEND_BUSY);
-        return new SIPStateTryCall(peerConnection);
     }
 
     //public receiveinvitesendtro skickar en BUSY returnerar

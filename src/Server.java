@@ -36,6 +36,16 @@ public class Server implements Runnable {
                 sipLogic.printState();
                 Socket newSocket = serverSocket.accept();
 
+             /*   if(!sipLogic.isInSession()){
+                    sipLogic.setInSession(true, newSocket);
+                }/*
+                else{
+                    out.println("i am busy, disconnecting from you");
+                    newSocket.close();
+                    t.interrupt();
+                    continue;
+
+                }/***/
 
 
                 new Thread(new Runnable() {
@@ -58,7 +68,6 @@ public class Server implements Runnable {
                                         } catch (InterruptedException e) {
                                             break;
                                         }
-
                                         out.println(msg);
 
                                     }
@@ -77,17 +86,14 @@ public class Server implements Runnable {
                                 if (args.length == 3 && args[0].equals("INVITE")) {
 
                                     if(!sipLogic.isInSession()){
-                                        sipLogic.setInSession(true);
+                                        sipLogic.setInSession(true, newSocket);
+                                    }  else{
+                                        out.println("i am busy, disconnecting from you");
+                                        sipLogic.processNextEvent(SIPEvent.SEND_BUSY,newSocket);
+                                        newSocket.close();
+                                        t.interrupt();
+                                        continue;
                                     }
-                                    else{
-
-                                            out.println("i am busy ffs, disconnecting from you");
-                                            newSocket.close();
-                                            t.interrupt();
-                                            continue;
-
-                                    }
-
                                     RemoteInfo.port = Integer.parseInt(args[2]);
                                     RemoteInfo.addr = args[1];
 
@@ -102,35 +108,35 @@ public class Server implements Runnable {
                                     RemoteInfo.port = Integer.parseInt(args[1]);
                                     command = "OK";
 
-                                    if (sipLogic.printState().equals("DISCONNECT")) {
-                                        newSocket.close();
-                                        t.interrupt();
-                                    }
+
                                 }
 
                                 switch (command) {
 
                                     case "ACK":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK, newSocket);
                                         break;
                                     case "TRYING":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY, newSocket);
                                         break;
                                     case "RINGING":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING, newSocket);
                                         break;
                                     case "OK":
-
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_OK);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_OK, newSocket);
                                         break;
                                     case "BYE":
-                                        sipLogic.setInSession(false);
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE, newSocket);
                                         break;
                                     case "INVITE":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE, newSocket);
                                         break;
-
+                                    case "BUSY":
+                                        System.out.println("The other guy is busy What to do? well, lets close the socket");
+                                        newSocket.close();
+                                        break;
+                                    default:
+                                        System.out.println("What the fuck are you talking about?");
                                     //default : fel
 
                                 }
@@ -142,7 +148,7 @@ public class Server implements Runnable {
                         } catch (SocketTimeoutException e) {
                             System.err.println("Socket timeout: " + e.getMessage());
                             try {
-                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
+                                sipLogic.processNextEvent(SIPEvent.SOCK_TIMEOUT, null);
                                 newSocket.close();
                             } catch (IOException e1) {
                                 e1.printStackTrace();

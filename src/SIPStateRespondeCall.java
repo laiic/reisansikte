@@ -1,6 +1,4 @@
-import java.io.IOException;
-import java.net.InetAddress;
-import java.util.Scanner;
+import java.net.Socket;
 
 public class SIPStateRespondeCall extends SIPState {
 
@@ -28,9 +26,8 @@ public class SIPStateRespondeCall extends SIPState {
     }
 
     @Override
-    public SIPState sendBUSY() {
+    public void sendBUSY(Socket socket) {
         peerConnection.sendMsg(SIPEvent.SEND_BUSY);
-        return new SIPStateRespondeCall(peerConnection);
     }
 
     // RECEIVED INVITE => FEL => TILLBAKA TILL WAITING.

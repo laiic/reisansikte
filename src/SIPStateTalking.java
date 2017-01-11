@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.Socket;
 
 public class SIPStateTalking extends SIPState {
 
@@ -60,6 +61,7 @@ public class SIPStateTalking extends SIPState {
         return new SIPStateWaiting(peerConnection);
     }
 
+
     @Override
     public String printState() {
         System.out.println("TALKING state");
@@ -67,8 +69,7 @@ public class SIPStateTalking extends SIPState {
     }
 
     @Override
-    public SIPState sendBUSY() {
+    public void sendBUSY(Socket socket) {
         peerConnection.sendMsg(SIPEvent.SEND_BUSY);
-        return new SIPStateTalking(peerConnection);
     }
 }

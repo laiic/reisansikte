@@ -44,6 +44,7 @@ public class Client implements Runnable {
             if (args.length == 3 && args[0].equals("INVITE")) {
                 System.out.println("Started new connection");
 
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -56,7 +57,12 @@ public class Client implements Runnable {
                             socket.setSoTimeout(15000);
                             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             out.println("INVITE " + myIpAddr + " " + RemoteInfo.mySipPort);
-                            sipLogic.processNextEvent(SIPEvent.SEND_INVITE);
+
+                            if(!sipLogic.isInSession()){
+                                sipLogic.setInSession(true, socket);
+                            }
+
+                            sipLogic.processNextEvent(SIPEvent.SEND_INVITE, socket);
 
                             Thread t = new Thread(new Runnable() {
                                 @Override
@@ -71,7 +77,6 @@ public class Client implements Runnable {
                                         } catch (InterruptedException e) {
                                             break;
                                         }
-
                                         out.println(msg);
                                     }
 
@@ -93,33 +98,33 @@ public class Client implements Runnable {
                                     RemoteInfo.port = Integer.parseInt(args[1]);
                                     command = "OK";
 
-                                    if(sipLogic.printState().equals("DISCONNECT")){
-                                        socket.close();
-                                        t.interrupt();
-                                    }
 
                                 }
 
                                 switch (command) {
 
                                     case "ACK":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_ACK, socket);
                                         break;
                                     case "TRYING": // " 2345"
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_TRY, socket);
                                         break;
                                     case "RINGING":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_RINGING, socket);
                                         break;
                                     case "OK":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_OK);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_OK, socket);
                                         break;
                                     case "BYE":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE, socket);
                                         break;
                                     case "INVITE":  // " 1234"
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE);
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE, socket);
                                         break;
+                                    case "BUSY":
+                                        System.out.println("The other guy is busy What to do? close the sock");
+                                        socket.close();
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_BUSY, socket); //PALLA ÄNDR
                                 }
 
                             }
@@ -128,33 +133,20 @@ public class Client implements Runnable {
 
                         } catch (ConnectException er) {
                             System.err.print("You are already in a session: " + er.getMessage());
-                            try {
-                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE); //USe this to Auto getback to Waiting.
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+
                         } catch (SocketTimeoutException te) {
 
                             System.err.println("Socket timeout: " + te.getMessage());
                             try {
-                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE); //USe this to Auto getback to Waiting.
+                                sipLogic.processNextEvent(SIPEvent.SOCK_TIMEOUT, null); //USe this to Auto getback to Waiting. INFÖRA TIMEOUT
                             } catch (IOException e1) {
                                 e1.printStackTrace();
                             }
 
                         } catch (SocketException se){
                             System.err.println("Socket closed: " + se.getMessage());
-                            try {
-                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE); //USe this to Auto getback to Waiting.
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                         } catch (IOException e) {
-                            try {
-                                sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE); //USe this to Auto getback to Waiting.
-                            } catch (IOException e1) {
-                                e1.printStackTrace();
-                            }
+
                             e.printStackTrace();
                         }
 
@@ -172,7 +164,7 @@ public class Client implements Runnable {
                 }
 
                 try {
-                    sipLogic.processNextEvent(SIPEvent.SEND_BYE);
+                    sipLogic.processNextEvent(SIPEvent.SEND_BYE, null);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -180,7 +172,7 @@ public class Client implements Runnable {
             } else if (msg.equals("OK")) {
 
                 try {
-                    sipLogic.processNextEvent(SIPEvent.SEND_OK);
+                    sipLogic.processNextEvent(SIPEvent.SEND_OK, null);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

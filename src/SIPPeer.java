@@ -5,10 +5,6 @@ import java.io.IOException;
  */
 public class SIPPeer {
     public static void main(String args[]) throws IOException {
-
-
         new Peer();
-//VAFAN
-
     }
 }

@@ -1,11 +1,7 @@
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.nio.Buffer;
-import java.util.Scanner;
 
 
 public class SIPStateWaiting extends SIPState {
@@ -33,6 +29,7 @@ public class SIPStateWaiting extends SIPState {
         return new SIPStateRespondeCall(this.peerConnection);
     }
 
+
     @Override
     public String printState() {
         System.out.println("WAITING state");
@@ -40,8 +37,9 @@ public class SIPStateWaiting extends SIPState {
     }
 
     @Override
-    public SIPState sendBUSY() {
+    public void sendBUSY(Socket socket) {
         peerConnection.sendMsg(SIPEvent.SEND_BUSY);
-        return new SIPStateWaiting(this.peerConnection);
     }
+
+
 }
