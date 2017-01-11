@@ -45,6 +45,8 @@ public class Client implements Runnable {
                 System.out.println("Started new connection");
 
 
+
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -129,7 +131,6 @@ public class Client implements Runnable {
                                         break;
                                     default:
                                         System.out.println("WTF is this?");
-
                                 }
 
                             }

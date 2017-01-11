@@ -101,8 +101,4 @@ public class SIPStateTalking extends SIPState {
         return "";
     }
 
-    @Override
-    public void sendBUSY(Socket socket) {
-        peerConnection.sendMsg(SIPEvent.SEND_BUSY);
-    }
 }

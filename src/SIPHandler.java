@@ -1,20 +1,31 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class SIPHandler implements SIPLogic {
 
     private SIPState currentState; // DATA BEHÖVS FÖR ATT KUNNA SKICKA I PARAMETRAR
     private Socket currentSocket;
-
+    private PeerConnection peerConnection;
 
     //HA EN VARIABEL SOM HÅLLER KOLL PÅ OM DET ÄR PERSON SOM VI PRATAR MED
 
     public SIPHandler(PeerConnection peerConnection) {
         currentState = new SIPStateWaiting(peerConnection);
+        this.peerConnection = peerConnection;
     }
 
     @Override
     public void processNextEvent(SIPEvent event, Socket socket) throws IOException {
+
+        System.out.println("ProcessNextEVENT IS in Session? "+peerConnection.isInSession() );
+        if(peerConnection.isInSession()){
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out.println("BUSY");
+        }
 
         /**
          *  DEn första Inviten Som skickas av en klient ska leda till att det sparas En currentTalker
@@ -24,7 +35,6 @@ public class SIPHandler implements SIPLogic {
 //CURRENT
 //        if (socket.equals(currentSocket)) {
             switch (event) {
-
                 case SEND_INVITE:
                     currentState = currentState.sendINVITE();
                     break;  // döp inspirereat av PDU:erna INVITE, TRO, ACK
@@ -43,7 +53,6 @@ public class SIPHandler implements SIPLogic {
                 case SEND_OK:
                     currentState = currentState.sendOK();
                     break;
-
                 case RECEIVE_INVITE:
                     currentState = currentState.receiveINVITE();
                     break;

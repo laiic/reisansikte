@@ -39,11 +39,4 @@ public class SIPStateWaiting extends SIPState {
         System.out.println("WAITING state");
         return "";
     }
-
-    @Override
-    public void sendBUSY(Socket socket) {
-        peerConnection.sendMsg(SIPEvent.SEND_BUSY);
-    }
-
-
 }

@@ -1,5 +1,3 @@
-import java.net.Socket;
-
 public abstract class SIPState {
 
     protected PeerConnection peerConnection;
@@ -57,7 +55,6 @@ public abstract class SIPState {
     public String printState() {
         return null;
     }
-    public abstract void sendBUSY(Socket socket);
     public SIPState receiveBUSY(){return new SIPStateWaiting(peerConnection);}
 
     //Samtliga metoder som hör till tillståndsövergångar

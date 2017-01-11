@@ -19,7 +19,6 @@ public class SIPStateRespondeCall extends SIPState {
         return new SIPStateRespondeCall(this.peerConnection);
     }
 
-
     @Override
     public SIPState receiveRINGING() {
         System.out.println("DON'T WANT RINGING");
@@ -53,11 +52,6 @@ public class SIPStateRespondeCall extends SIPState {
     public SIPState sendOK() {
         peerConnection.sendMsg(SIPEvent.SEND_OK);
         return new SIPStateRespondeCall(this.peerConnection);
-    }
-
-    @Override
-    public void sendBUSY(Socket socket) {
-        peerConnection.sendMsg(SIPEvent.SEND_BUSY);
     }
 
     // RECEIVED INVITE => FEL => TILLBAKA TILL WAITING.

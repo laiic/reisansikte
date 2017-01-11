@@ -57,8 +57,4 @@ public class SIPStateDisconnect extends SIPState {
         return "DISCONNECT";
     }
 
-    @Override
-    public void sendBUSY(Socket socket) {
-        peerConnection.sendMsg(SIPEvent.SEND_BUSY);
-    }
 }

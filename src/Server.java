@@ -36,6 +36,7 @@ public class Server implements Runnable {
                 sipLogic.printState();
                 Socket newSocket = serverSocket.accept();
 
+
              /*   if(!sipLogic.isInSession()){
                     sipLogic.setInSession(true, newSocket);
                 }/*

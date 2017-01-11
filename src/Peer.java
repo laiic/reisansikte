@@ -19,6 +19,7 @@ public class Peer implements PeerConnection{
     private String myIpAddr;
     protected  SIPLogic sipLogic;
     private boolean inSession = false;
+    protected InetAddress callee;
 
     public boolean isInSession() {
         return inSession;

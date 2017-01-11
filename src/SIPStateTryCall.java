@@ -47,10 +47,6 @@ public class SIPStateTryCall extends SIPState {
         return "";
     }
 
-    @Override
-    public void sendBUSY(Socket socket) {
-        peerConnection.sendMsg(SIPEvent.SEND_BUSY);
-    }
 
     //public receiveinvitesendtro skickar en BUSY returnerar
 
