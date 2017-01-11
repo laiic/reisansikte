@@ -36,6 +36,7 @@ public class Server implements Runnable {
                 sipLogic.printState();
                 Socket newSocket = serverSocket.accept();
 
+//TEST IF BUSY
 
              /*   if(!sipLogic.isInSession()){
                     sipLogic.setInSession(true, newSocket);
@@ -56,6 +57,9 @@ public class Server implements Runnable {
                             PrintWriter out = new PrintWriter(newSocket.getOutputStream(), true);
                             BufferedReader in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
                             newSocket.setSoTimeout(15000);
+                           // Testar om Busy Genom att skicka något direkt till sig själ
+                            sipLogic.processNextEvent(SIPEvent.TEST_BUSY, newSocket);
+
                             Thread t = new Thread(new Runnable() {
 
                                 @Override

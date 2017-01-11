@@ -7,7 +7,7 @@ import java.net.Socket;
 public class SIPHandler implements SIPLogic {
 
     private SIPState currentState; // DATA BEHÖVS FÖR ATT KUNNA SKICKA I PARAMETRAR
-    private Socket currentSocket;
+
     private PeerConnection peerConnection;
 
     //HA EN VARIABEL SOM HÅLLER KOLL PÅ OM DET ÄR PERSON SOM VI PRATAR MED
@@ -19,14 +19,6 @@ public class SIPHandler implements SIPLogic {
 
     @Override
     public void processNextEvent(SIPEvent event, Socket socket) throws IOException {
-
-        System.out.println("ProcessNextEVENT IS in Session? "+peerConnection.isInSession() );
-        if(peerConnection.isInSession()){
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out.println("BUSY");
-        }
-
         /**
          *  DEn första Inviten Som skickas av en klient ska leda till att det sparas En currentTalker
          *  CURRENT
@@ -34,6 +26,7 @@ public class SIPHandler implements SIPLogic {
          * */
 //CURRENT
 //        if (socket.equals(currentSocket)) {
+        if (socket.getInetAddress().equals(RemoteInfo.addr)) {
             switch (event) {
                 case SEND_INVITE:
                     currentState = currentState.sendINVITE();
@@ -74,11 +67,21 @@ public class SIPHandler implements SIPLogic {
                 case SOCK_TIMEOUT:
                     currentState = currentState.socketTimeout();
                     break;
+                case TEST_BUSY:
+                    if(socket.getInetAddress().equals(RemoteInfo.addr)){
+                        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                        System.out.println("Got Something from another dude so i am Sending Close and closing that socket");
+                        out.println("BUSY");
+                        socket.close();
+                    }
             }
-//        }
-//        else {
-//            socket.close();
-//        }
+        }
+        else {;
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            System.out.println("Got Something from another dude so i am Sending Close and closing that socket");
+            out.println("BUSY");
+            socket.close();
+        }
     }
 
     public String printState() {
