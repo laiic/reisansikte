@@ -89,6 +89,7 @@ public class SIPStateTalking extends SIPState {
             e.printStackTrace();
         }
         peerConnection.sendMsg(SIPEvent.SEND_OK);
+        peerConnection.setInSession(false);
         return new SIPStateWaiting(peerConnection);
     }
 

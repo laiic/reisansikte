@@ -3,4 +3,8 @@
  */
 public interface PeerConnection {
      void sendMsg( SIPEvent msg );//DDENNA DÅ?
+
+     boolean isInSession();
+     public void setInSession(boolean inSession);
+
 }

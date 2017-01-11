@@ -5,16 +5,7 @@ public class SIPHandler implements SIPLogic {
 
     private SIPState currentState; // DATA BEHÖVS FÖR ATT KUNNA SKICKA I PARAMETRAR
     private Socket currentSocket;
-    private boolean inSession = false;
 
-    public boolean isInSession() {
-        return inSession;
-    }
-
-    public void setInSession(boolean inSession, Socket newSocket) {
-        this.inSession = inSession;
-        this.currentSocket = newSocket;
-    }
 
     //HA EN VARIABEL SOM HÅLLER KOLL PÅ OM DET ÄR PERSON SOM VI PRATAR MED
 
@@ -67,7 +58,6 @@ public class SIPHandler implements SIPLogic {
                     break;
                 case RECEIVE_BYE:
                     currentState = currentState.receiveBYE();
-                    inSession = false;
                     break;
                 case RECEIVE_OK:
                     currentState = currentState.receiveOK();

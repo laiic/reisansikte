@@ -58,9 +58,9 @@ public class Client implements Runnable {
                             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             out.println("INVITE " + myIpAddr + " " + RemoteInfo.mySipPort);
 
-                            if (!sipLogic.isInSession()) {
-                                sipLogic.setInSession(true, socket);
-                            }
+//                            if (!sipLogic.isInSession()) {
+//                                sipLogic.setInSession(true, socket);
+//                            }
 
                             sipLogic.processNextEvent(SIPEvent.SEND_INVITE, socket);
 

@@ -85,15 +85,15 @@ public class Server implements Runnable {
 
                                 if (args.length == 3 && args[0].equals("INVITE")) {
 
-                                    if(!sipLogic.isInSession()){
-                                        sipLogic.setInSession(true, newSocket);
-                                    }  else{
-                                        out.println("i am busy, disconnecting from you");
-                                        sipLogic.processNextEvent(SIPEvent.SEND_BUSY,newSocket);
-                                        newSocket.close();
-                                        t.interrupt();
-                                        continue;
-                                    }
+//                                    if(!sipLogic.isInSession()){
+//                                        sipLogic.setInSession(true, newSocket);
+//                                    }  else{
+//                                        out.println("i am busy, disconnecting from you");
+//                                        sipLogic.processNextEvent(SIPEvent.SEND_BUSY,newSocket);
+//                                        newSocket.close();
+//                                        t.interrupt();
+//                                        continue;
+//                                    }
                                     RemoteInfo.port = Integer.parseInt(args[2]);
                                     RemoteInfo.addr = args[1];
 

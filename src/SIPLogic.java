@@ -7,8 +7,7 @@ import java.net.Socket;
 public interface SIPLogic {
 
      void processNextEvent(SIPEvent event, Socket socket) throws IOException;
-     boolean isInSession();
-     void setInSession(boolean inSession, Socket newSocket);
+
 
      String printState();
 

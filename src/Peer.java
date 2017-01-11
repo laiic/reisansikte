@@ -18,6 +18,15 @@ public class Peer implements PeerConnection{
     private BlockingQueue<String> queue;
     private String myIpAddr;
     protected  SIPLogic sipLogic;
+    private boolean inSession = false;
+
+    public boolean isInSession() {
+        return inSession;
+    }
+
+    public void setInSession(boolean inSession) {
+        this.inSession = inSession;
+    }
 
     public Peer() throws IOException {
 
