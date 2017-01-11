@@ -58,7 +58,7 @@ public class Client implements Runnable {
                             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             out.println("INVITE " + myIpAddr + " " + RemoteInfo.mySipPort);
 
-                            if(!sipLogic.isInSession()){
+                            if (!sipLogic.isInSession()) {
                                 sipLogic.setInSession(true, socket);
                             }
 
@@ -102,7 +102,6 @@ public class Client implements Runnable {
                                 }
 
 
-
                                 switch (command) {
 
                                     case "ACK":
@@ -127,6 +126,10 @@ public class Client implements Runnable {
                                         System.out.println("The other guy is busy What to do? close the sock");
                                         socket.close();
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_BUSY, socket); //PALLA ÄNDR
+                                        break;
+                                    default:
+                                        System.out.println("WTF is this?");
+
                                 }
 
                             }
@@ -145,7 +148,7 @@ public class Client implements Runnable {
                                 e1.printStackTrace();
                             }
 
-                        } catch (SocketException se){
+                        } catch (SocketException se) {
                             System.err.println("Socket closed: " + se.getMessage());
                         } catch (IOException e) {
 
