@@ -95,7 +95,9 @@ public class Client implements Runnable {
                                     command = "OK";
                                 }
 
-
+                                if(args[1].equals(null)){
+                                    args[1]= ""+socket.getPort();
+                                }
                                 switch (command) {
 
                                     case "ACK":
