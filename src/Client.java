@@ -95,10 +95,15 @@ public class Client implements Runnable {
                                     command = "OK";
                                 }
 
-                                if(args[1].equals(null)){
+                                try {
+                                    if (args[1].equals(null)) {
+                                        args[1] = "" + socket.getPort();
+                                    }
+                                } catch (ArrayIndexOutOfBoundsException ae) {
                                     args = new String[2];
-                                    args[1]= ""+socket.getPort();
+                                    args[1] = "" + socket.getPort();
                                 }
+
                                 switch (command) {
 
                                     case "ACK":

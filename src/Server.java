@@ -99,9 +99,13 @@ public class Server implements Runnable {
                                     command = "OK";
                                 }
 
-                                if(args[1].equals(null)){
+                                try {
+                                    if (args[1].equals(null)) {
+                                        args[1] = "" + newSocket.getPort();
+                                    }
+                                } catch (ArrayIndexOutOfBoundsException ae) {
                                     args = new String[2];
-                                    args[1]= ""+newSocket.getPort();
+                                    args[1] = "" + newSocket.getPort();
                                 }
                                 switch (command) {
 
