@@ -55,7 +55,7 @@ public class Client implements Runnable {
                             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             out.println("INVITE " + myIpAddr + " " + RemoteInfo.mySipPort);
 
-                            //TESTA SKCIKA INVITE SE OM MAN ÄR BUSY
+                            sipLogic.processNextEvent(SIPEvent.SEND_INVITE, socket, Integer.parseInt(arg[2]));
 
 
 //                            if (!sipLogic.isInSession()) {
@@ -178,7 +178,7 @@ public class Client implements Runnable {
             } else if (msg.equals("OK")) {
 
                 try {
-                    queue.put("BYE");
+                    queue.put("OK");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
