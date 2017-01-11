@@ -24,6 +24,24 @@ public class SIPStateTryCall extends SIPState {
     }
 
     @Override
+    public SIPState receiveINVITE() {
+        System.out.println("CAN'T RECEIVE INVITE");
+        return new SIPStateTryCall(this.peerConnection);
+    }
+
+    @Override
+    public SIPState receiveACK() {
+        System.out.println("DON'T WANT ACK!");
+        return new SIPStateTryCall(this.peerConnection);
+    }
+
+    @Override
+    public SIPState receiveBYE() {
+        System.out.println("DON'T WANT BYE");
+        return new SIPStateTryCall(this.peerConnection);
+    }
+
+    @Override
     public String printState() {
         System.out.println("tryCall state");
         return "";

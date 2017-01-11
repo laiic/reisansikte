@@ -35,6 +35,37 @@ public class SIPStateTalking extends SIPState {
     }
 
     @Override
+    public SIPState receiveINVITE() {
+        System.out.println("CAN'T RECEIVE INVITE");
+        return new SIPStateTalking(this.peerConnection);
+    }
+
+    @Override
+    public SIPState receiveACK() {
+        System.out.println("DON'T WANT ACK!");
+        return new SIPStateTalking(this.peerConnection);
+    }
+
+    @Override
+    public SIPState receiveOK() {
+        System.out.println("DON'T WANT ok!");
+        return new SIPStateTalking(this.peerConnection);
+    }
+
+    @Override
+    public SIPState receiveRINGING() {
+        System.out.println("DON'T WANT RINGING");
+        return new SIPStateTalking(this.peerConnection);
+    }
+
+    @Override
+    public SIPState receiveTRY() {
+        System.out.println("DON'T WANT TRY");
+        return new SIPStateTalking(this.peerConnection);
+    }
+
+
+    @Override
     public SIPState sendBYE() {
         System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();

@@ -1,4 +1,3 @@
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -20,7 +19,7 @@ public class SIPStateWaiting extends SIPState {
     }
 
     @Override
-    public SIPState receiveINVITE(/* LÄGG TILL PARAMETE
+    public SIPStateTryCall receiveINVITE(/* LÄGG TILL PARAMETE
     RAR HÄR, HANDLER SER TILL ATT SKICKA DE DATA SOM BEHÖVS */){
            // FÖR ATT *HÄR* KUNNA SKICKA TRO
         peerConnection.sendMsg(SIPEvent.SEND_TRY);   //  TRO     OK +

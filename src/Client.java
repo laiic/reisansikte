@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ConnectException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -16,7 +17,6 @@ public class Client implements Runnable {
 
     private BlockingQueue<String> queue;
     private SIPLogic sipLogic;
-
     private String myIpAddr;
 
     public Client(BlockingQueue<String> queue, SIPLogic sipLogic, String myIpAddr) {
@@ -100,6 +100,8 @@ public class Client implements Runnable {
 
 
                                 }
+
+
 
                                 switch (command) {
 

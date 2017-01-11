@@ -14,6 +14,35 @@ public class SIPStateDisconnect extends SIPState {
         return new SIPStateWaiting(peerConnection);
     }
 
+    @Override
+    public SIPState receiveRINGING() {
+        System.out.println("DON'T WANT RINGING");
+        return new SIPStateDisconnect(this.peerConnection);
+    }
+
+    @Override
+    public SIPState receiveTRY() {
+        System.out.println("DON'T WANT TRY");
+        return new SIPStateDisconnect(this.peerConnection);
+    }
+
+    @Override
+    public SIPState receiveINVITE() {
+        System.out.println("DON'T WANT INVITE");
+        return new SIPStateDisconnect(this.peerConnection);
+    }
+
+    @Override
+    public SIPState receiveACK() {
+        System.out.println("DON'T WANT ACK");
+        return new SIPStateDisconnect(this.peerConnection);
+    }
+
+    @Override
+    public SIPState receiveBYE() {
+        System.out.println("DON'T WANT BYE");
+        return new SIPStateDisconnect(this.peerConnection);
+    }
 
     @Override
     public String printState() {
