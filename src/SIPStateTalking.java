@@ -77,7 +77,7 @@ public class SIPStateTalking extends SIPState {
         System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();
         System.out.println("closeportar");
-        RemoteInfo.audioStreamUDP.close();
+     //   RemoteInfo.audioStreamUDP.close();
         running = false;
         peerConnection.sendMsg(SIPEvent.SEND_BYE);
         return new SIPStateDisconnect(peerConnection);
@@ -88,7 +88,7 @@ public class SIPStateTalking extends SIPState {
         System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();
         System.out.println("closeportar");
-        RemoteInfo.audioStreamUDP.close();
+       // RemoteInfo.audioStreamUDP.close();
         running = false;
         try {
             Thread.currentThread().sleep(200); // väntar lite på att skicka OK
