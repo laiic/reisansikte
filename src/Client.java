@@ -178,8 +178,8 @@ public class Client implements Runnable {
             } else if (msg.equals("OK")) {
 
                 try {
-                    queue.put("OK");
-                } catch (InterruptedException e) {
+                    sipLogic.processNextEvent(SIPEvent.SEND_OK,null,RemoteInfo.mySipPort);
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
