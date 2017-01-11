@@ -62,7 +62,6 @@ public class Client implements Runnable {
 //                                sipLogic.setInSession(true, socket);
 //                            }
 
-                            sipLogic.processNextEvent(SIPEvent.SEND_INVITE, socket, Integer.parseInt(args[1]));
 
                             Thread t = new Thread(new Runnable() {
                                 @Override
