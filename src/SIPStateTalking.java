@@ -90,6 +90,7 @@ public class SIPStateTalking extends SIPState {
         }
         peerConnection.sendMsg(SIPEvent.SEND_OK);
         peerConnection.setInSession(false);
+        System.out.println("INSESSION FALSE ");
         return new SIPStateWaiting(peerConnection);
     }
 

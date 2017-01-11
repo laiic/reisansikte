@@ -16,6 +16,7 @@ public class SIPStateWaiting extends SIPState {
     @Override
     public SIPState sendINVITE() {
         peerConnection.setInSession(true);
+        System.out.println("INSESSION TRUE ");
         return new SIPStateTryCall(this.peerConnection);
     }
 
@@ -27,6 +28,8 @@ public class SIPStateWaiting extends SIPState {
         peerConnection.sendMsg(SIPEvent.SEND_RINGING);
         System.out.println("To respond type OK a, timeout in 15 sek: ");
         peerConnection.setInSession(true);
+
+        System.out.println("INSESSION TRUE ");
         return new SIPStateRespondeCall(this.peerConnection);
     }
 

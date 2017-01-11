@@ -12,6 +12,7 @@ public class SIPStateDisconnect extends SIPState {
         System.out.println("Ok received");
         System.out.println("returning to Wait from Disconnect and closing current port and SetinS");
         peerConnection.setInSession(false);
+        System.out.println("INSESSION FALSE ");
         return new SIPStateWaiting(peerConnection);
     }
 
