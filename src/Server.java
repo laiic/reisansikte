@@ -99,6 +99,9 @@ public class Server implements Runnable {
                                     command = "OK";
                                 }
 
+                                if(args[1].equals(null)){
+                                    args[1]= ""+newSocket.getPort();
+                                }
                                 switch (command) {
 
                                     case "ACK":
@@ -117,7 +120,7 @@ public class Server implements Runnable {
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_BYE, newSocket, Integer.parseInt(args[1]));
                                         break;
                                     case "INVITE":
-                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE, newSocket, Integer.parseInt(args[1]));
+                                        sipLogic.processNextEvent(SIPEvent.RECEIVE_INVITE, newSocket, Integer.parseInt(args[2]));
                                         break;
                                     case "BUSY":
                                         System.out.println("The other guy is busy What to do? well, lets close the socket");
