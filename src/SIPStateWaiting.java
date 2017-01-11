@@ -19,7 +19,7 @@ public class SIPStateWaiting extends SIPState {
     }
 
     @Override
-    public SIPStateTryCall receiveINVITE(/* LÄGG TILL PARAMETE
+    public SIPState receiveINVITE(/* LÄGG TILL PARAMETE
     RAR HÄR, HANDLER SER TILL ATT SKICKA DE DATA SOM BEHÖVS */){
            // FÖR ATT *HÄR* KUNNA SKICKA TRO
         peerConnection.sendMsg(SIPEvent.SEND_TRY);   //  TRO     OK +

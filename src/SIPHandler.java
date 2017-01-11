@@ -30,8 +30,8 @@ public class SIPHandler implements SIPLogic {
          *  CURRENT
          *
          * */
-
-        if (socket.equals(currentSocket)) {
+//CURRENT
+//        if (socket.equals(currentSocket)) {
             switch (event) {
 
                 case SEND_INVITE:
@@ -76,10 +76,10 @@ public class SIPHandler implements SIPLogic {
                     currentState = currentState.socketTimeout();
                     break;
             }
-        }
-        else {
-            socket.close();
-        }
+//        }
+//        else {
+//            socket.close();
+//        }
     }
 
     public String printState() {
