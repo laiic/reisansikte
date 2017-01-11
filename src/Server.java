@@ -100,6 +100,7 @@ public class Server implements Runnable {
                                 }
 
                                 if(args[1].equals(null)){
+                                    args = new String[2];
                                     args[1]= ""+newSocket.getPort();
                                 }
                                 switch (command) {

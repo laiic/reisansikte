@@ -96,6 +96,7 @@ public class Client implements Runnable {
                                 }
 
                                 if(args[1].equals(null)){
+                                    args = new String[2];
                                     args[1]= ""+socket.getPort();
                                 }
                                 switch (command) {
