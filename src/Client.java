@@ -144,7 +144,7 @@ public class Client implements Runnable {
 
                             System.err.println("Socket timeout: " + te.getMessage());
                             try {
-                                sipLogic.processNextEvent(SIPEvent.SOCK_TIMEOUT, null, Integer.parseInt(args[1])); //USe this to Auto getback to Waiting. INFÖRA TIMEOUT
+                                sipLogic.processNextEvent(SIPEvent.SOCK_TIMEOUT, null, 1); //USe this to Auto getback to Waiting. INFÖRA TIMEOUT
                             } catch (IOException e1) {
                                 e1.printStackTrace();
                             }
@@ -170,7 +170,7 @@ public class Client implements Runnable {
                 }
 
                 try {
-                    sipLogic.processNextEvent(SIPEvent.SEND_BYE, null, Integer.parseInt(args[1]));
+                    sipLogic.processNextEvent(SIPEvent.SEND_BYE, null, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -178,7 +178,7 @@ public class Client implements Runnable {
             } else if (msg.equals("OK")) {
 
                 try {
-                    sipLogic.processNextEvent(SIPEvent.SEND_OK, null, Integer.parseInt(args[1]));
+                    sipLogic.processNextEvent(SIPEvent.SEND_OK, null, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
