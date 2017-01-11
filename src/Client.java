@@ -38,9 +38,9 @@ public class Client implements Runnable {
             sipLogic.printState();
             msg = scanner.nextLine();
 
-            String[] args = msg.split(" ");
+            String[] arg = msg.split(" ");
 
-            if (args.length == 3 && args[0].equals("INVITE")) {
+            if (arg.length == 3 && arg[0].equals("INVITE")) {
                 System.out.println("Started new connection");
 
 
@@ -49,7 +49,7 @@ public class Client implements Runnable {
                     public void run() {
                         //Socket socket = null;
                         try {
-                            Socket socket = new Socket(args[1], Integer.parseInt(args[2]));
+                            Socket socket = new Socket(arg[1], Integer.parseInt(arg[2]));
                             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                             socket.setSoTimeout(15000);
                             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -178,10 +178,11 @@ public class Client implements Runnable {
             } else if (msg.equals("OK")) {
 
                 try {
-                    sipLogic.processNextEvent(SIPEvent.SEND_OK, null, 1);
-                } catch (IOException e) {
+                    queue.put("BYE");
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
             }
         }
         //System.out.println("Client handler stopped");
