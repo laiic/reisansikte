@@ -129,6 +129,8 @@ public class Client implements Runnable {
                                         socket.close();
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_BUSY, socket, Integer.parseInt(args[1])); //PALLA ÄNDR
                                         break;
+                                    case "KEEPALIVE":
+                                        System.out.println("KEEPALIVE RECEIVED TO KEEP CONECTION");
                                     default:
                                         out.println("DU har pratat strunt! så nu stänger vi ner våran uppkoppling från klient!");
                                         System.out.println("JAG FICK STRUNT");
