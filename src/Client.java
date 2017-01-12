@@ -131,6 +131,7 @@ public class Client implements Runnable {
                                         break;
                                     case "KEEPALIVE":
                                         System.out.println("KEEPALIVE RECEIVED TO KEEP CONECTION");
+                                        break;
                                     default:
                                         out.println("DU har pratat strunt! så nu stänger vi ner våran uppkoppling från klient!");
                                         System.out.println("JAG FICK STRUNT");

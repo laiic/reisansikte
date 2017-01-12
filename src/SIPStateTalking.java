@@ -36,7 +36,12 @@ public class SIPStateTalking extends SIPState {
 
     @Override
     public SIPState receiveINVITE(Socket socket, int port) {
-        System.out.println("CAN'T RECEIVE INVITE");
+        System.out.println("CAN'T RECEIVE INVITE, CLOSING THIS CONNECTION");
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return new SIPStateTalking(this.peerConnection);
     }
 
