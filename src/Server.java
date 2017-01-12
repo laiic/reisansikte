@@ -132,7 +132,7 @@ public class Server implements Runnable {
                                         newSocket.close();
                                         break;
                                     default:
-                                        out.print("DU har pratat strunt! så nu stänger vi ner våran uppkoppling");
+                                        out.println("DU har pratat strunt! så nu stänger vi ner våran uppkoppling");
                                         newSocket.close();
                                         sipLogic.processNextEvent(SIPEvent.SOCK_TIMEOUT, null, 1);
                                         break;

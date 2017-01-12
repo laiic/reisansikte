@@ -62,7 +62,7 @@ public class Peer implements PeerConnection{
                     queue.put("BYE");
                     break;
                 case SEND_TRY:
-                    queue.put("TRYING"); // FELO
+                    queue.put("GRYING"); // FELO
                     break;
                 case SEND_RINGING:
                     queue.put("RINGING");

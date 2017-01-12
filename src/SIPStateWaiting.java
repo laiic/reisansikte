@@ -11,6 +11,8 @@ public class SIPStateWaiting extends SIPState {
 
     public SIPStateWaiting(PeerConnection peerConnection) {
         super(peerConnection);
+        System.out.println("VI ÄR INTE IN SESSION");
+        peerConnection.setInSession(false);
     }
 
     @Override
@@ -25,7 +27,7 @@ public class SIPStateWaiting extends SIPState {
     RAR HÄR, HANDLER SER TILL ATT SKICKA DE DATA SOM BEHÖVS */Socket socket, int port){
            // FÖR ATT *HÄR* KUNNA SKICKA TRO
         peerConnection.sendMsg(SIPEvent.SEND_TRY);   //  TRO     OK +
-        peerConnection.sendMsg(SIPEvent.SEND_RINGING);
+        peerConnection.sendMsg(SIPEvent.SEND_TRY);
         System.out.println("To respond type OK a, timeout in 15 sek: ");
         peerConnection.setInSession(true);
 
