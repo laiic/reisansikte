@@ -75,6 +75,8 @@ public class SIPHandler implements SIPLogic {
                 case SOCK_TIMEOUT:
                     currentState = currentState.socketTimeout(socket);
                     break;
+                case RECEIVE_BUSY:
+                    currentState = currentState.receiveBUSY();
             }
     }
 
