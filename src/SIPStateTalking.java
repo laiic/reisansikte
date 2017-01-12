@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -35,8 +36,10 @@ public class SIPStateTalking extends SIPState {
     }
 
     @Override
-    public SIPState receiveINVITE(Socket socket, int port) {
+    public SIPState receiveINVITE(Socket socket, int port) throws IOException {
         System.out.println("CAN'T RECEIVE INVITE, CLOSING THIS CONNECTION");
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        out.println("BUSY");
         try {
             socket.close();
         } catch (IOException e) {

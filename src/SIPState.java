@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.Socket;
 
 public abstract class SIPState {
@@ -34,7 +35,7 @@ public abstract class SIPState {
         return new SIPStateWaiting(peerConnection);
     }
 
-    public SIPState receiveINVITE(Socket socket, int port) {return new SIPStateWaiting(peerConnection);} // RETURN WAITING
+    public SIPState receiveINVITE(Socket socket, int port) throws IOException {return new SIPStateWaiting(peerConnection);} // RETURN WAITING
 
     public SIPState receiveACK(Socket socket) {
         return new SIPStateWaiting(peerConnection);
