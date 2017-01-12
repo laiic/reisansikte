@@ -11,7 +11,7 @@ public class SIPStateWaiting extends SIPState {
 
     public SIPStateWaiting(PeerConnection peerConnection) {
         super(peerConnection);
-        System.out.println("VI ÄR INTE IN SESSION");
+        System.out.println("VI ÄR INTE IN SESSION, waitingkonstruktor");
         peerConnection.setInSession(false);
     }
 
