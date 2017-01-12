@@ -131,7 +131,7 @@ public class Client implements Runnable {
                                         break;
                                     default:
                                         out.println("DU har pratat strunt! så nu stänger vi ner våran uppkoppling från klient!");
-                                        System.out.println("JAG SKICKADE SKIT");
+                                        System.out.println("JAG FICK STRUNT");
                                         socket.close();
                                         sipLogic.processNextEvent(SIPEvent.SOCK_TIMEOUT, null, 1);
                                         break;

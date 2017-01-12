@@ -23,11 +23,17 @@ public class SIPStateWaiting extends SIPState {
     }
 
     @Override
+    public SIPState sendOK(Socket socket) {
+        System.out.println("CAN'T send OK");
+        return new SIPStateWaiting(this.peerConnection);
+    }
+
+    @Override
     public SIPState receiveINVITE(/* LÄGG TILL PARAMETE
     RAR HÄR, HANDLER SER TILL ATT SKICKA DE DATA SOM BEHÖVS */Socket socket, int port){
            // FÖR ATT *HÄR* KUNNA SKICKA TRO
         peerConnection.sendMsg(SIPEvent.SEND_TRY);   //  TRO     OK +
-        peerConnection.sendMsg(SIPEvent.SEND_TRY);
+        peerConnection.sendMsg(SIPEvent.SEND_OK);
         System.out.println("To respond type OK a, timeout in 15 sek: ");
         peerConnection.setInSession(true);
 
