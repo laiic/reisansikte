@@ -33,7 +33,7 @@ public class SIPStateWaiting extends SIPState {
     RAR HÄR, HANDLER SER TILL ATT SKICKA DE DATA SOM BEHÖVS */Socket socket, int port){
            // FÖR ATT *HÄR* KUNNA SKICKA TRO
         peerConnection.sendMsg(SIPEvent.SEND_TRY);   //  TRO     OK +
-        peerConnection.sendMsg(SIPEvent.SEND_OK);
+        peerConnection.sendMsg(SIPEvent.SEND_RINGING);
         System.out.println("To respond type OK a, timeout in 15 sek: ");
         peerConnection.setInSession(true);
 

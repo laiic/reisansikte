@@ -70,8 +70,6 @@ public class SIPStateTalking extends SIPState {
         return new SIPStateTalking(this.peerConnection);
     }
 
-
-
     @Override
     public SIPState sendBYE(Socket socket) {
         System.out.println("StopStream");
