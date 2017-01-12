@@ -130,7 +130,10 @@ public class Client implements Runnable {
                                         sipLogic.processNextEvent(SIPEvent.RECEIVE_BUSY, socket, Integer.parseInt(args[1])); //PALLA ÄNDR
                                         break;
                                     default:
-                                        System.out.println("WTF is this?");
+                                        out.print("DU har pratat strunt! så nu stänger vi ner våran uppkoppling");
+                                        socket.close();
+                                        sipLogic.processNextEvent(SIPEvent.SOCK_TIMEOUT, null, 1);
+                                        break;
                                 }
 
                             }
