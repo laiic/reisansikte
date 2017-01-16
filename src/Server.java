@@ -132,6 +132,8 @@ public class Server implements Runnable {
                                     case "BUSY":
                                         System.out.println("The other guy is busy What to do? well, lets close the socket");
                                         newSocket.close();
+                                        out.close();
+                                        in.close();
                                         break;
                                     case "KEEPALIVE":
                                         System.out.println("KEEPALIVE RECEIVED TO KEEP CONNECTION");
