@@ -14,11 +14,15 @@ public class SIPStateDisconnect extends SIPState {
         System.out.println("returning to Wait from Disconnect and closing current port and SetinS");
         peerConnection.setInSession(false);
         System.out.println("INSESSION FALSE ");
+
         try {
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        RemoteInfo.addr = null ;
+
+        RemoteInfo.port = 0 ;
         return new SIPStateWaiting(peerConnection);
     }
 

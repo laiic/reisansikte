@@ -95,20 +95,19 @@ public class SIPStateTalking extends SIPState {
         RemoteInfo.audioStreamUDP.stopStreaming();
         System.out.println("closeportar");
        // RemoteInfo.audioStreamUDP.close();
-        running = false;
+
         try {
             Thread.currentThread().sleep(200); // väntar lite på att skicka OK
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        running = false;
         peerConnection.sendMsg(SIPEvent.SEND_OK);
         peerConnection.setInSession(false);
         System.out.println("INSESSION FALSE ");
-//        try {
-//            socket.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        RemoteInfo.addr = null ;
+
+        RemoteInfo.port = 0 ;
         return new SIPStateWaiting(peerConnection);
     }
 
