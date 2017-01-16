@@ -104,11 +104,11 @@ public class SIPStateTalking extends SIPState {
         peerConnection.sendMsg(SIPEvent.SEND_OK);
         peerConnection.setInSession(false);
         System.out.println("INSESSION FALSE ");
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            socket.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return new SIPStateWaiting(peerConnection);
     }
 
