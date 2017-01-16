@@ -48,6 +48,7 @@ public class Client implements Runnable {
                     @Override
                     public void run() {
                         //Socket socket = null;
+                        Thread t = null;
                         try {
                             Socket socket = new Socket(arg[1], Integer.parseInt(arg[2]));
                             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -65,7 +66,7 @@ public class Client implements Runnable {
 //                            }
 
 
-                            Thread t = new Thread(new Runnable() {
+                            t = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
 
@@ -79,7 +80,7 @@ public class Client implements Runnable {
                                             break;
                                         }
                                         out.println(msg);
-                                        System.out.println("sending: "+ msg);
+                                        System.out.println("sending: " + msg);
                                     }
 
                                 }
@@ -145,7 +146,6 @@ public class Client implements Runnable {
 
                             }
 
-                            t.interrupt();
 
                         } catch (ConnectException er) {
                             System.err.print("COULD NOT CONNECT: " + er.getMessage());
@@ -164,8 +164,9 @@ public class Client implements Runnable {
                         } catch (IOException e) {
 
                             e.printStackTrace();
-                        }finally {
+                        } finally {
                             System.out.println("one Client thread finnished");
+                            t.interrupt();
                         }
 
                     }

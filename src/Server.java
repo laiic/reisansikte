@@ -53,13 +53,14 @@ public class Server implements Runnable {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        Thread t = null;
                         try {
                             PrintWriter out = new PrintWriter(newSocket.getOutputStream(), true);
                             BufferedReader in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
                             newSocket.setSoTimeout(15000);
                             // Testar om Busy Genom att skicka något direkt till sig själ
 
-                            Thread t = new Thread(new Runnable() {
+                            t = new Thread(new Runnable() {
 
                                 @Override
                                 public void run() {
@@ -73,7 +74,7 @@ public class Server implements Runnable {
                                             break;
                                         }
                                         out.println(msg);
-                                        System.out.println("sending: "+ msg);
+                                        System.out.println("sending: " + msg);
 
                                     }
                                 }
@@ -85,7 +86,7 @@ public class Server implements Runnable {
                             String command;
 
                             while ((command = in.readLine()) != null) {
-                                System.out.println("incoming: "+ command);
+                                System.out.println("incoming: " + command);
                                 String[] args = command.split(" ");
 
                                 if (args.length == 3 && args[0].equals("INVITE")) {
@@ -144,7 +145,6 @@ public class Server implements Runnable {
 
                             }
 
-                            t.interrupt();
 
                         } catch (SocketTimeoutException e) {
                             System.err.println("Socket timeout: " + e.getMessage());
@@ -165,7 +165,7 @@ public class Server implements Runnable {
                                 e1.printStackTrace();
                             }
                         } finally {
-
+                            t.interrupt();
                             System.out.println("One Server thread finished");
                         }
                     }
