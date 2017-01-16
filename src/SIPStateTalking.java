@@ -85,6 +85,18 @@ public class SIPStateTalking extends SIPState {
         System.out.println("closeportar");
      //   RemoteInfo.audioStreamUDP.close();
         running = false;
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(socket.getOutputStream(), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        out.println("BYE");
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         peerConnection.sendMsg(SIPEvent.SEND_BYE);
         return new SIPStateDisconnect(peerConnection);
     }

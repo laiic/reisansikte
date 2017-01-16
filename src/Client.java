@@ -170,11 +170,11 @@ public class Client implements Runnable {
 
             } else if (msg.equals("BYE")) {
 
-                try {
-                    queue.put("BYE");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    queue.put("BYE");
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 
                 try {
                     sipLogic.processNextEvent(SIPEvent.SEND_BYE, null, 1);
