@@ -77,6 +77,7 @@ public class SIPHandler implements SIPLogic {
                     break;
                 case RECEIVE_BUSY:
                     currentState = currentState.receiveBUSY();
+                    break;
             }
     }
 

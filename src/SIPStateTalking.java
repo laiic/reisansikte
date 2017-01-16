@@ -90,20 +90,31 @@ public class SIPStateTalking extends SIPState {
     }
 
     @Override
+    public SIPState sendOK(Socket socket) {
+        System.out.println("Dont send OK!");
+        return new SIPStateTalking(peerConnection);
+    }
+
+
+    @Override
     public SIPState receiveBYE(Socket socket) {
         System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();
         System.out.println("closeportar");
        // RemoteInfo.audioStreamUDP.close();
-        running = false;
+
         try {
             Thread.currentThread().sleep(200); // väntar lite på att skicka OK
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        running = false;
         peerConnection.sendMsg(SIPEvent.SEND_OK);
         peerConnection.setInSession(false);
         System.out.println("INSESSION FALSE ");
+        RemoteInfo.addr = null ;
+
+        RemoteInfo.port = 0 ;
         return new SIPStateWaiting(peerConnection);
     }
 
