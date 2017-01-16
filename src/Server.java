@@ -57,7 +57,7 @@ public class Server implements Runnable {
                             PrintWriter out = new PrintWriter(newSocket.getOutputStream(), true);
                             BufferedReader in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
                             newSocket.setSoTimeout(15000);
-                           // Testar om Busy Genom att skicka något direkt till sig själ
+                            // Testar om Busy Genom att skicka något direkt till sig själ
 
                             Thread t = new Thread(new Runnable() {
 
@@ -88,7 +88,7 @@ public class Server implements Runnable {
                                 String[] args = command.split(" ");
 
                                 if (args.length == 3 && args[0].equals("INVITE")) {
-                                   // RemoteInfo.addr = args[1];
+                                    // RemoteInfo.addr = args[1];
                                     command = "INVITE";
 
                                     //OM VI FÅR EN INVITE OCH VI ÄR INSESSION,, SKICKA EN BYE.
@@ -163,9 +163,10 @@ public class Server implements Runnable {
                             } catch (IOException e1) {
                                 e1.printStackTrace();
                             }
-                        }
+                        } finally {
 
-                        System.out.println("Thread finished");
+                            System.out.println("One Server thread finished");
+                        }
                     }
                 }).start();
             }

@@ -80,11 +80,11 @@ public class SIPStateTalking extends SIPState {
 
     @Override
     public SIPState sendBYE(Socket socket) {
+        running = false;
         System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();
         System.out.println("closeportar");
      //   RemoteInfo.audioStreamUDP.close();
-        running = false;
         peerConnection.sendMsg(SIPEvent.SEND_BYE);
         return new SIPStateDisconnect(peerConnection);
     }
@@ -98,6 +98,7 @@ public class SIPStateTalking extends SIPState {
 
     @Override
     public SIPState receiveBYE(Socket socket) {
+        running = false;
         System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();
         System.out.println("closeportar");
@@ -108,7 +109,6 @@ public class SIPStateTalking extends SIPState {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        running = false;
         peerConnection.sendMsg(SIPEvent.SEND_OK);
         peerConnection.setInSession(false);
         System.out.println("INSESSION FALSE ");

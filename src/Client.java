@@ -161,6 +161,8 @@ public class Client implements Runnable {
                         } catch (IOException e) {
 
                             e.printStackTrace();
+                        }finally {
+                            System.out.println("one Client thread finnished");
                         }
 
                     }
