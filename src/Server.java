@@ -73,6 +73,7 @@ public class Server implements Runnable {
                                             break;
                                         }
                                         out.println(msg);
+                                        System.out.println("sending: "+ msg);
 
                                     }
                                 }
@@ -84,7 +85,7 @@ public class Server implements Runnable {
                             String command;
 
                             while ((command = in.readLine()) != null) {
-                                System.out.println(command);
+                                System.out.println("incoming: "+ command);
                                 String[] args = command.split(" ");
 
                                 if (args.length == 3 && args[0].equals("INVITE")) {

@@ -79,6 +79,7 @@ public class Client implements Runnable {
                                             break;
                                         }
                                         out.println(msg);
+                                        System.out.println("sending: "+ msg);
                                     }
 
                                 }
