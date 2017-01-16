@@ -60,7 +60,7 @@ public class SIPStateDisconnect extends SIPState {
 
 
     @Override
-    public String printState() {
+    public String printState() {//oplökölk
         String str = new String("DISCONNECT");
         System.out.println("DISCONNECT state");
         return str;
