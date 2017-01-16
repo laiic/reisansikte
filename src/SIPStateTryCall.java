@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class SIPStateTryCall extends SIPState {
@@ -26,9 +28,18 @@ public class SIPStateTryCall extends SIPState {
 
     public SIPState receiveOK(Socket socket, int port) {
         System.out.println("OK received Srnding ACK");
-        peerConnection.sendMsg(SIPEvent.SEND_ACK);
         RemoteInfo.addr = socket.getInetAddress().getHostAddress();
         RemoteInfo.port = port;
+
+
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(socket.getOutputStream(), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        out.println("ACK");
+        System.out.println("NU GÅ ACK TILL DEN ANDRA SNUBBEN");
         return new SIPStateTalking(this.peerConnection);
     }
 
