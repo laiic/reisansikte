@@ -90,6 +90,13 @@ public class SIPStateTalking extends SIPState {
     }
 
     @Override
+    public SIPState sendOK(Socket socket) {
+        System.out.println("Dont send OK!");
+        return new SIPStateTalking(peerConnection);
+    }
+
+
+    @Override
     public SIPState receiveBYE(Socket socket) {
         System.out.println("StopStream");
         RemoteInfo.audioStreamUDP.stopStreaming();
