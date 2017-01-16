@@ -77,6 +77,14 @@ public class SIPStateTalking extends SIPState {
     @Override
     public SIPState sendINVITE(Socket socket) {
         System.out.println("WHY WOULD YOU WANNA SEND INVITE? ");
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(socket.getOutputStream(), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        out.println("BUSY");
+        System.out.println("NU GÅ BUSY TILL DEN ANDRA SNUBBEN");
         return new SIPStateTalking(this.peerConnection);
     }
 
