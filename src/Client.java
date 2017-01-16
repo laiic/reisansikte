@@ -55,6 +55,8 @@ public class Client implements Runnable {
                             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                             out.println("INVITE " + myIpAddr + " " + RemoteInfo.mySipPort);
 
+
+                            System.out.println("LYCKADES KOPPLA UPP MIG");
                             sipLogic.processNextEvent(SIPEvent.SEND_INVITE, socket, Integer.parseInt(arg[2]));
 
 
@@ -145,7 +147,7 @@ public class Client implements Runnable {
                             t.interrupt();
 
                         } catch (ConnectException er) {
-                            System.err.print("You are already in a session: " + er.getMessage());
+                            System.err.print("COULD NOT CONNECT: " + er.getMessage());
 
                         } catch (SocketTimeoutException te) {
 
