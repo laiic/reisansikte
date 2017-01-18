@@ -166,7 +166,11 @@ public class Client implements Runnable {
                             e.printStackTrace();
                         } finally {
                             System.out.println("one Client thread finnished");
-                            t.interrupt();
+                            try {
+                                t.interrupt();
+                            } catch (NullPointerException ne) {
+                                System.err.println(ne);
+                            }
                         }
 
                     }
@@ -197,7 +201,7 @@ public class Client implements Runnable {
 //                }
 
                 try {
-                    sipLogic.processNextEvent(SIPEvent.SEND_OK,null,RemoteInfo.mySipPort);
+                    sipLogic.processNextEvent(SIPEvent.SEND_OK, null, RemoteInfo.mySipPort);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

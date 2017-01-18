@@ -6,6 +6,8 @@ import java.net.Socket;
 public class SIPStateTalking extends SIPState {
 
     boolean running;
+    private Thread t;
+
     public SIPStateTalking(PeerConnection peerConnection) {
         super(peerConnection);
         try {
@@ -16,7 +18,7 @@ public class SIPStateTalking extends SIPState {
             e.printStackTrace();
         }
 
-        Thread t = new Thread(new Runnable() {
+        t = new Thread(new Runnable() {
             @Override
             public void run() {
                 running = true;
@@ -95,6 +97,11 @@ public class SIPStateTalking extends SIPState {
         RemoteInfo.audioStreamUDP.stopStreaming();
         System.out.println("closeportar");
      //   RemoteInfo.audioStreamUDP.close();
+        try {
+            t.interrupt();
+        } catch (NullPointerException ne) {
+            System.err.println(ne);
+        }
         peerConnection.sendMsg(SIPEvent.SEND_BYE);
         return new SIPStateDisconnect(peerConnection);
     }
@@ -113,7 +120,11 @@ public class SIPStateTalking extends SIPState {
         RemoteInfo.audioStreamUDP.stopStreaming();
         System.out.println("closeportar");
        // RemoteInfo.audioStreamUDP.close();
-
+        try {
+            t.interrupt();
+        } catch (NullPointerException ne) {
+            System.err.println(ne);
+        }
         try {
             Thread.currentThread().sleep(200); // väntar lite på att skicka OK
         } catch (InterruptedException e) {
